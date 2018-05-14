@@ -9,5 +9,12 @@ class TasksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_act)
+
+        val tasksFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
+                as TasksFragment? ?: TasksFragment.newInstance().also {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.content_frame, it)
+            transaction.commit()
+        }
     }
 }
