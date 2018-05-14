@@ -1,4 +1,4 @@
-package ru.trubin23.tasks_mvp_kotlin.tasks
+package ru.trubin23.tasks_mvp_kotlin
 
 interface BaseView<T> {
 
