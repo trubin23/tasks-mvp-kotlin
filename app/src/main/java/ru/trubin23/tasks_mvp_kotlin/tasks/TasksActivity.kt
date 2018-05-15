@@ -16,5 +16,7 @@ class TasksActivity : AppCompatActivity() {
             transaction.add(R.id.content_frame, it)
             transaction.commit()
         }
+
+        TasksPresenter(tasksFragment)
     }
 }
