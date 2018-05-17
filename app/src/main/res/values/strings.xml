@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">tasks-mvp-kotlin</string>
+    <string name="no_tasks_active">You have no active tasks!</string>
+    <string name="no_tasks_completed">You have no completed tasks!</string>
+    <string name="no_tasks_all">You have no tasks!</string>
 </resources>
