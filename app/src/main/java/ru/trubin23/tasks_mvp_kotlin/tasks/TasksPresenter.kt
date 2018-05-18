@@ -9,4 +9,7 @@ class TasksPresenter(val tasksView: TasksContract.View)
 
     override fun start() {
     }
+
+    override fun addNewTask() {
+    }
 }
