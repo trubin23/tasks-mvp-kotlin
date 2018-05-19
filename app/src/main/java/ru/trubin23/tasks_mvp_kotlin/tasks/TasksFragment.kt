@@ -6,17 +6,23 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import ru.trubin23.tasks_mvp_kotlin.R
+import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TaskItemListener
+import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
 
 class TasksFragment : Fragment(), TasksContract.View {
 
-    override lateinit var presenter: TasksContract.Presenter
+    override lateinit var mPresenter: TasksContract.Presenter
 
     private lateinit var mNoTasksView: View
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
+
+    private val mItemListener: TaskItemListener = object : TaskItemListener{
+    }
+
+    private val mListAdapter = TasksAdapter(mItemListener)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,20 +30,22 @@ class TasksFragment : Fragment(), TasksContract.View {
 
         with(root){
 
+            val listView = findViewById<ListView>(R.id.tasks_list).apply { adapter = mListAdapter }
+
             mNoTasksView = findViewById(R.id.no_tasks)
             mNoTasksIcon = findViewById(R.id.no_tasks_icon)
             mNoTasksLabel = findViewById(R.id.no_tasks_label)
         }
 
         activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.
-                setOnClickListener { presenter.addNewTask() }
+                setOnClickListener { mPresenter.addNewTask() }
 
         return root
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.start()
+        mPresenter.start()
     }
 
     companion object {

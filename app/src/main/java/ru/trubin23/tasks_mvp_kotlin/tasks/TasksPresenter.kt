@@ -4,7 +4,7 @@ class TasksPresenter(val tasksView: TasksContract.View)
     : TasksContract.Presenter {
 
     init {
-        tasksView.presenter = this
+        tasksView.mPresenter = this
     }
 
     override fun start() {
