@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.CheckBox
+import android.widget.TextView
 import ru.trubin23.tasks_mvp_kotlin.R
 import ru.trubin23.tasks_mvp_kotlin.data.Task
-import java.io.File
 import java.util.ArrayList
 
 class TasksAdapter(private val itemListener: TaskItemListener)
@@ -21,6 +22,17 @@ class TasksAdapter(private val itemListener: TaskItemListener)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val rowView = convertView ?: LayoutInflater.from(parent?.context)
                 .inflate(R.layout.task_item, parent, false)
+        val task = getItem(position)
+
+        with(rowView.findViewById<TextView>(R.id.item_title)){
+            text = task.titleForList
+        }
+
+        with(rowView.findViewById<CheckBox>(R.id.item_completed)){
+            isChecked = task.isCompleted
+        }
+
+        rowView.setOnClickListener{ itemListener.onTaskClick(task)}
 
         return rowView
     }
