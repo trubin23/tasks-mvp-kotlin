@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_horizontal_padding">16dp</dimen>
+    <dimen name="item_vertical_padding">8dp</dimen>
+    <dimen name="no_tasks_icon_size">50dp</dimen>
+</resources>
