@@ -20,17 +20,17 @@ class TasksFragment : Fragment(), TasksContract.View {
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
 
-    private val mItemListener: TaskItemListener = object : TaskItemListener{
+    private val mItemListener: TaskItemListener = object : TaskItemListener {
         override fun onTaskClick(clickedTask: Task) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mPresenter.openTaskDetail(clickedTask)
         }
 
         override fun onCompleteTask(completeTask: Task) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mPresenter.completeTask(completeTask)
         }
 
         override fun onActivateTask(activateTask: Task) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            mPresenter.activateTask(activateTask)
         }
     }
 
@@ -40,7 +40,7 @@ class TasksFragment : Fragment(), TasksContract.View {
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.tasks_frag, container, false)
 
-        with(root){
+        with(root) {
 
             val listView = findViewById<ListView>(R.id.tasks_list).apply { adapter = mListAdapter }
 
@@ -49,8 +49,7 @@ class TasksFragment : Fragment(), TasksContract.View {
             mNoTasksLabel = findViewById(R.id.no_tasks_label)
         }
 
-        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.
-                setOnClickListener { mPresenter.addNewTask() }
+        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.setOnClickListener { mPresenter.addNewTask() }
 
         return root
     }
@@ -58,6 +57,18 @@ class TasksFragment : Fragment(), TasksContract.View {
     override fun onResume() {
         super.onResume()
         mPresenter.start()
+    }
+
+    override fun showAddTask() {
+    }
+
+    override fun showTaskDetail(mId: String) {
+    }
+
+    override fun showTaskMarkedComplete() {
+    }
+
+    override fun showTaskMarkedActivate() {
     }
 
     companion object {

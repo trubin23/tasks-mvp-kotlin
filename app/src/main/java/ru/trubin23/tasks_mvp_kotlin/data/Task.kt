@@ -1,6 +1,9 @@
 package ru.trubin23.tasks_mvp_kotlin.data
 
-class Task(var mTitle: String = "", var mDescription: String = "") {
+import java.util.*
+
+class Task(var mTitle: String = "", var mDescription: String = "",
+           var mId: String = UUID.randomUUID().toString()) {
 
     var isCompleted = false
 
