@@ -13,7 +13,7 @@ import java.util.ArrayList
 class TasksAdapter(private val itemListener: TaskItemListener)
     : BaseAdapter() {
 
-    var mTasks : List<Task> = ArrayList(0)
+    var mTasks: List<Task> = ArrayList(0)
         set(tasks) {
             field = tasks
             notifyDataSetChanged()
@@ -24,15 +24,30 @@ class TasksAdapter(private val itemListener: TaskItemListener)
                 .inflate(R.layout.task_item, parent, false)
         val task = getItem(position)
 
-        with(rowView.findViewById<TextView>(R.id.item_title)){
+        with(rowView.findViewById<TextView>(R.id.item_title)) {
             text = task.titleForList
         }
 
-        with(rowView.findViewById<CheckBox>(R.id.item_completed)){
+        with(rowView.findViewById<CheckBox>(R.id.item_completed)) {
             isChecked = task.isCompleted
+
+            val rowViewBackground = if (task.isCompleted) {
+                R.drawable.task_completed_touch_feedback
+            } else {
+                R.drawable.touch_feedback
+            }
+            rowView.setBackgroundColor(rowViewBackground)
+
+            setOnClickListener {
+                if (!task.isCompleted) {
+                    itemListener.onCompleteTask(task)
+                } else {
+                    itemListener.onActivateTask(task)
+                }
+            }
         }
 
-        rowView.setOnClickListener{ itemListener.onTaskClick(task)}
+        rowView.setOnClickListener { itemListener.onTaskClick(task) }
 
         return rowView
     }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import ru.trubin23.tasks_mvp_kotlin.R
+import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TaskItemListener
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
 
@@ -20,6 +21,17 @@ class TasksFragment : Fragment(), TasksContract.View {
     private lateinit var mNoTasksLabel: TextView
 
     private val mItemListener: TaskItemListener = object : TaskItemListener{
+        override fun onTaskClick(clickedTask: Task) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onCompleteTask(completeTask: Task) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun onActivateTask(activateTask: Task) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
     }
 
     private val mListAdapter = TasksAdapter(mItemListener)
