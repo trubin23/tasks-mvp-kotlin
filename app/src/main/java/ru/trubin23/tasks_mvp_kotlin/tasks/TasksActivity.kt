@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvp_kotlin.tasks
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import ru.trubin23.tasks_mvp_kotlin.R
+import ru.trubin23.tasks_mvp_kotlin.util.addFragmentToActivity
 
 class TasksActivity : AppCompatActivity() {
 
@@ -12,9 +13,7 @@ class TasksActivity : AppCompatActivity() {
 
         val tasksFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
                 as TasksFragment? ?: TasksFragment.newInstance().also {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.content_frame, it)
-            transaction.commit()
+            addFragmentToActivity(it, R.id.content_frame)
         }
 
         TasksPresenter(tasksFragment)
