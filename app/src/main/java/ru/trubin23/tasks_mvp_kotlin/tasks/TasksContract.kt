@@ -21,7 +21,7 @@ interface TasksContract {
 
         fun addNewTask()
 
-        fun openTaskDetail(clickedTask: Task)
+        fun openTaskDetail(requestedTask: Task)
 
         fun completeTask(completeTask: Task)
 

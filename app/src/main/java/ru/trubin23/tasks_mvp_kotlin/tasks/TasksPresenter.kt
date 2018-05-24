@@ -1,14 +1,21 @@
 package ru.trubin23.tasks_mvp_kotlin.tasks
 
 import ru.trubin23.tasks_mvp_kotlin.data.Task
+import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
 
-class TasksPresenter(private val mTasksView: TasksContract.View) : TasksContract.Presenter {
+class TasksPresenter(private val mTasksRepository: TasksRepository,
+                     private val mTasksView: TasksContract.View)
+    : TasksContract.Presenter {
 
     init {
         mTasksView.mPresenter = this
     }
 
     override fun start() {
+    }
+
+    private fun loadTasks(){
+
     }
 
     override fun addNewTask() {

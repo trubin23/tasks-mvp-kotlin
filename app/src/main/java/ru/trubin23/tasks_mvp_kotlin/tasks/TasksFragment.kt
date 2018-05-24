@@ -1,7 +1,9 @@
 package ru.trubin23.tasks_mvp_kotlin.tasks
 
 import android.os.Bundle
+import android.os.Message
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import ru.trubin23.tasks_mvp_kotlin.R
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TaskItemListener
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
+import ru.trubin23.tasks_mvp_kotlin.util.showSnackBar
 
 class TasksFragment : Fragment(), TasksContract.View {
 
@@ -66,9 +69,15 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun showTaskMarkedComplete() {
+        showMessage(getString(R.string.task_marked_complete))
     }
 
     override fun showTaskMarkedActivate() {
+        showMessage(getString(R.string.task_marked_active))
+    }
+
+    private fun showMessage(message: String) {
+        view?.showSnackBar(message, Snackbar.LENGTH_LONG)
     }
 
     companion object {
