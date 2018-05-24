@@ -1,9 +1,9 @@
 package ru.trubin23.tasks_mvp_kotlin.tasks
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import ru.trubin23.tasks_mvp_kotlin.R
-import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
+import ru.trubin23.tasks_mvp_kotlin.util.Injection
 import ru.trubin23.tasks_mvp_kotlin.util.addFragmentToActivity
 
 class TasksActivity : AppCompatActivity() {
@@ -17,6 +17,6 @@ class TasksActivity : AppCompatActivity() {
             addFragmentToActivity(it, R.id.content_frame)
         }
 
-        TasksPresenter(TasksRepository(), tasksFragment)
+        TasksPresenter(Injection.provideTasksRepository(applicationContext), tasksFragment)
     }
 }

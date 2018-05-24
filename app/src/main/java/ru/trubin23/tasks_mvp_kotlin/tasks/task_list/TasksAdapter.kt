@@ -8,7 +8,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import ru.trubin23.tasks_mvp_kotlin.R
 import ru.trubin23.tasks_mvp_kotlin.data.Task
-import java.util.ArrayList
+import java.util.*
 
 class TasksAdapter(private val itemListener: TaskItemListener)
     : BaseAdapter() {
