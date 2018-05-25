@@ -2,7 +2,7 @@ package ru.trubin23.tasks_mvp_kotlin.data.source
 
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
 
-class TasksRepository(
+class TasksRepository private constructor(
         val mTasksRemoteDataSource: TasksDataSource,
         val mTasksLocalDataSource: TasksLocalDataSource
 ) : TasksDataSource {
