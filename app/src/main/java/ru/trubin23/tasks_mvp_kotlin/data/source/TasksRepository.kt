@@ -1,6 +1,11 @@
 package ru.trubin23.tasks_mvp_kotlin.data.source
 
-class TasksRepository : TasksDataSource{
+import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
+
+class TasksRepository(
+        val mTasksRemoteDataSource: TasksDataSource,
+        val mTasksLocalDataSource: TasksLocalDataSource
+) : TasksDataSource {
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -14,8 +19,11 @@ class TasksRepository : TasksDataSource{
 
         private var INSTANCE: TasksRepository? = null
 
-        @JvmStatic fun getInstance() : TasksRepository{
-            return INSTANCE ?: TasksRepository().apply { INSTANCE = this }
+        @JvmStatic
+        fun getInstance(tasksRemoteDataSource: TasksDataSource,
+                        tasksLocalDataSource: TasksLocalDataSource): TasksRepository {
+            return INSTANCE ?: TasksRepository(tasksRemoteDataSource,
+                    tasksLocalDataSource).apply { INSTANCE = this }
         }
     }
 }
