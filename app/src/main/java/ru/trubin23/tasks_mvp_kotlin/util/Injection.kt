@@ -8,6 +8,6 @@ import ru.trubin23.tasks_mvp_kotlin.data.source.remote.TasksRemoteRepository
 object Injection {
     fun provideTasksRepository(context: Context): TasksRepository {
         return TasksRepository.getInstance(TasksRemoteRepository.getInstance(),
-                TasksLocalRepository())
+                TasksLocalRepository.getInstance())
     }
 }

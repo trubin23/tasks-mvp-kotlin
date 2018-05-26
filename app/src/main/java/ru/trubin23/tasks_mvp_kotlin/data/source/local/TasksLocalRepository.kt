@@ -2,7 +2,8 @@ package ru.trubin23.tasks_mvp_kotlin.data.source.local
 
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
 
-class TasksLocalRepository : TasksLocalDataSource {
+class TasksLocalRepository private constructor() : TasksLocalDataSource {
+
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -13,5 +14,21 @@ class TasksLocalRepository : TasksLocalDataSource {
 
     override fun deleteAllTasks() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+        private var INSTANCE: TasksLocalRepository? = null
+
+        @JvmStatic
+        fun getInstance(): TasksLocalRepository {
+            if (INSTANCE == null) {
+                synchronized(TasksLocalRepository::javaClass) {
+                    if (INSTANCE == null) {
+                        INSTANCE = TasksLocalRepository()
+                    }
+                }
+            }
+            return INSTANCE!!
+        }
     }
 }

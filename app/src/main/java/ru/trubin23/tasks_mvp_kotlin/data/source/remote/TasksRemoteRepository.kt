@@ -1,9 +1,9 @@
 package ru.trubin23.tasks_mvp_kotlin.data.source.remote
 
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
-import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalRepository
 
 class TasksRemoteRepository private constructor() : TasksDataSource {
+
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
