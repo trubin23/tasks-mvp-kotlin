@@ -13,7 +13,7 @@ import java.util.*
 class TasksAdapter(private val itemListener: TaskItemListener)
     : BaseAdapter() {
 
-    var mTasks: List<Task> = ArrayList(0)
+    private var mTasks: List<Task> = ArrayList(0)
         set(tasks) {
             field = tasks
             notifyDataSetChanged()
@@ -29,9 +29,9 @@ class TasksAdapter(private val itemListener: TaskItemListener)
         }
 
         with(rowView.findViewById<CheckBox>(R.id.item_completed)) {
-            isChecked = task.isCompleted
+            isChecked = task.mIsCompleted
 
-            val rowViewBackground = if (task.isCompleted) {
+            val rowViewBackground = if (task.mIsCompleted) {
                 R.drawable.task_completed_touch_feedback
             } else {
                 R.drawable.touch_feedback
@@ -39,7 +39,7 @@ class TasksAdapter(private val itemListener: TaskItemListener)
             rowView.setBackgroundColor(rowViewBackground)
 
             setOnClickListener {
-                if (!task.isCompleted) {
+                if (!task.mIsCompleted) {
                     itemListener.onCompleteTask(task)
                 } else {
                     itemListener.onActivateTask(task)
