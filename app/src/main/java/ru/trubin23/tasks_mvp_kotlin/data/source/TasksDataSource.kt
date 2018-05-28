@@ -21,4 +21,10 @@ interface TasksDataSource {
     fun getTasks(callback: LoadTasksCallback)
 
     fun getTask(taskId: String, callback: GetTaskCallback)
+
+    fun saveTask(task: Task)
+
+    fun updateTask(task: Task)
+
+    fun deleteTask(taskId: String)
 }
