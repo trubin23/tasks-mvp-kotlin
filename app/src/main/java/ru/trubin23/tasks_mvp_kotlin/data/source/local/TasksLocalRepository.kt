@@ -7,25 +7,45 @@ import java.util.concurrent.Executors
 
 class TasksLocalRepository private constructor(
         private val mTasksDao: TasksDao,
-        private val mExecutor: Executor
+        private val mDiskIO: Executor
 ) : TasksLocalDataSource {
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
+        mDiskIO.execute {
+            val tasks = mTasksDao.getTasks()
+            if (tasks.isEmpty()) {
+                callback.onDataNotAvailable()
+            } else {
+                callback.onTasksLoaded(tasks)
+            }
+        }
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
+        mDiskIO.execute {
+            val task = mTasksDao.getTaskById(taskId)
+            if (task == null) {
+                callback.onDataNotAvailable()
+            } else {
+                callback.onTaskLoaded(task)
+            }
+        }
     }
 
     override fun saveTask(task: Task) {
+        mDiskIO.execute { mTasksDao.insertTask(task) }
     }
 
     override fun updateTask(task: Task) {
+        mDiskIO.execute { mTasksDao.updateTask(task) }
     }
 
     override fun deleteTask(taskId: String) {
+        mDiskIO.execute { mTasksDao.deleteTaskById(taskId) }
     }
 
     override fun deleteAllTasks() {
+        mDiskIO.execute { mTasksDao.deleteTasks() }
     }
 
     companion object {
