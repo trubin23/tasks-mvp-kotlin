@@ -7,12 +7,13 @@ import java.util.*
 
 @Entity(tableName = "tasks")
 data class Task @JvmOverloads constructor(
-        var mTitle: String = "",
-        var mDescription: String = "",
+        @ColumnInfo(name = "title") var mTitle: String = "",
+        @ColumnInfo(name = "description") var mDescription: String = "",
         @PrimaryKey @ColumnInfo(name = "entryId") var mId: String = UUID.randomUUID().toString()
 ) {
 
-    var isCompleted = false
+    @ColumnInfo(name = "completed")
+    var mIsCompleted = false
 
     val titleForList: String
         get() = if (mTitle.isNotEmpty()) {
@@ -21,4 +22,9 @@ data class Task @JvmOverloads constructor(
             mDescription
         }
 
+    val isActive: Boolean
+        get() = !mIsCompleted
+
+    val isEmpty: Boolean
+        get() = mTitle.isEmpty() && mDescription.isEmpty()
 }

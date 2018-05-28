@@ -20,4 +20,13 @@ interface TasksDao {
 
     @Query("UPDATE tasks SET completed = :completed WHERE entryId = :taskId")
     fun updateCompleted(taskId: String, completed: Boolean)
+
+    @Query("DELETE FROM tasks WHERE entryId = :taskId")
+    fun deleteTaskById(taskId: String)
+
+    @Query("DELETE FROM tasks")
+    fun deleteTasks()
+
+    @Query("DELETE FROM tasks WHERE completed=1")
+    fun deleteCompletedTasks(): Int
 }
