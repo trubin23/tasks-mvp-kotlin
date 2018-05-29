@@ -3,7 +3,6 @@ package ru.trubin23.tasks_mvp_kotlin.data.source.local
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
 import ru.trubin23.tasks_mvp_kotlin.util.AppExecutors
-import java.util.concurrent.Executors
 
 class TasksLocalRepository private constructor(
         private val mAppExecutors: AppExecutors,
@@ -14,9 +13,9 @@ class TasksLocalRepository private constructor(
         mAppExecutors.diskIO.execute {
             val tasks = mTasksDao.getTasks()
             if (tasks.isEmpty()) {
-                callback.onDataNotAvailable()
+                mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
             } else {
-                callback.onTasksLoaded(tasks)
+                mAppExecutors.mainThread.execute { callback.onTasksLoaded(tasks) }
             }
         }
     }
@@ -25,9 +24,9 @@ class TasksLocalRepository private constructor(
         mAppExecutors.diskIO.execute {
             val task = mTasksDao.getTaskById(taskId)
             if (task == null) {
-                callback.onDataNotAvailable()
+                mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
             } else {
-                callback.onTaskLoaded(task)
+                mAppExecutors.mainThread.execute { callback.onTaskLoaded(task) }
             }
         }
     }

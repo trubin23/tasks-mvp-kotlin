@@ -77,6 +77,10 @@ class TasksFragment : Fragment(), TasksContract.View {
         showMessage(getString(R.string.task_marked_active))
     }
 
+    override fun showLoadingTasksError() {
+        showMessage(getString(R.string.loading_tasks_error))
+    }
+
     private fun showMessage(message: String) {
         view?.showSnackBar(message, Snackbar.LENGTH_LONG)
     }
