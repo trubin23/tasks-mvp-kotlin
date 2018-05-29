@@ -11,6 +11,6 @@ object Injection {
         val database = TasksDatabase.getInstance(context)
 
         return TasksRepository.getInstance(TasksRemoteRepository.getInstance(),
-                TasksLocalRepository.getInstance(database.tasksDao()))
+                TasksLocalRepository.getInstance(AppExecutors(), database.tasksDao()))
     }
 }
