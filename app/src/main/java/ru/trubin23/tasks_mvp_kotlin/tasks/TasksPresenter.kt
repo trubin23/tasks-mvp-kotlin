@@ -57,9 +57,9 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
 
     private fun showEmptyTasks() {
         when (mCurrentFiltering) {
-            ACTIVE_TASKS -> TODO()
-            COMPLETED_TASKS -> TODO()
-            else -> TODO()
+            ACTIVE_TASKS -> mTasksView.showActiveFilterLabel()
+            COMPLETED_TASKS -> mTasksView.showCompletedFilterLabel()
+            else -> mTasksView.showAllFilterLabel()
         }
     }
 

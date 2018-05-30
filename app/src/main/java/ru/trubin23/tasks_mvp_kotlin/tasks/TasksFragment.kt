@@ -17,6 +17,17 @@ import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
 import ru.trubin23.tasks_mvp_kotlin.util.showSnackBar
 
 class TasksFragment : Fragment(), TasksContract.View {
+    override fun showActiveFilterLabel() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showCompletedFilterLabel() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showAllFilterLabel() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override lateinit var mPresenter: TasksContract.Presenter
 

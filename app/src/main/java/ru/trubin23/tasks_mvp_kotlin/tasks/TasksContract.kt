@@ -19,6 +19,12 @@ interface TasksContract {
         fun showLoadingTasksError()
 
         fun showTasks(tasks: List<Task>)
+
+        fun showActiveFilterLabel()
+
+        fun showCompletedFilterLabel()
+
+        fun showAllFilterLabel()
     }
 
     interface Presenter : BasePresenter {
