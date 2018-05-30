@@ -3,10 +3,15 @@ package ru.trubin23.tasks_mvp_kotlin.tasks
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
+import ru.trubin23.tasks_mvp_kotlin.tasks.TasksFilterType.*
 
 class TasksPresenter(private val mTasksRepository: TasksRepository,
                      private val mTasksView: TasksContract.View)
     : TasksContract.Presenter {
+
+    private var mCurrentFiltering = ALL_TASKS
+
+    private var mFirstLoad = true
 
     init {
         mTasksView.mPresenter = this
@@ -15,12 +20,22 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     override fun start() {
     }
 
-    private fun loadTasks(){
-        mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback{
+    private fun loadTasks() {
+        mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback {
             override fun onTasksLoaded(tasks: List<Task>) {
                 val tasksToShow = ArrayList<Task>()
 
-                //TODO implement
+                for (task in tasks) {
+                    when (mCurrentFiltering) {
+                        ALL_TASKS -> tasksToShow.add(task)
+                        ACTIVE_TASKS -> if (task.isActive) {
+                            tasksToShow.add(task)
+                        }
+                        COMPLETED_TASKS -> if (task.mIsCompleted) {
+                            tasksToShow.add(task)
+                        }
+                    }
+                }
 
                 showTasks(tasksToShow)
             }
@@ -32,7 +47,28 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     private fun showTasks(tasks: List<Task>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (tasks.isEmpty()) {
+            showEmptyTasks()
+        } else {
+            mTasksView.showTasks(tasks)
+            showFilteringLabel()
+        }
+    }
+
+    private fun showEmptyTasks() {
+        when (mCurrentFiltering) {
+            ACTIVE_TASKS -> TODO()
+            COMPLETED_TASKS -> TODO()
+            else -> TODO()
+        }
+    }
+
+    private fun showFilteringLabel() {
+        when (mCurrentFiltering) {
+            ACTIVE_TASKS -> TODO()
+            COMPLETED_TASKS -> TODO()
+            else -> TODO()
+        }
     }
 
     override fun addNewTask() {

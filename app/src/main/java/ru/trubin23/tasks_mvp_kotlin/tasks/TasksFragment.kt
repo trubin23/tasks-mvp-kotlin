@@ -63,6 +63,10 @@ class TasksFragment : Fragment(), TasksContract.View {
         mPresenter.start()
     }
 
+    override fun showTasks(tasks: List<Task>) {
+
+    }
+
     override fun showAddTask() {
     }
 

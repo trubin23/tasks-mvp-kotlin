@@ -17,6 +17,8 @@ interface TasksContract {
         fun showTaskMarkedActivate()
 
         fun showLoadingTasksError()
+
+        fun showTasks(tasks: List<Task>)
     }
 
     interface Presenter : BasePresenter {
