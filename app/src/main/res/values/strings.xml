@@ -8,5 +8,9 @@
     <string name="task_marked_complete">Task marked complete</string>
     <string name="task_marked_active">Task marked active</string>
 
-    <string name="loading_tasks_error">Error while loading tasks</string>>
+    <string name="loading_tasks_error">Error while loading tasks</string>
+
+    <string name="label_active">Active tasks</string>
+    <string name="label_completed">Completed tasks</string>
+    <string name="label_all">All tasks</string>>
 </resources>

@@ -17,23 +17,14 @@ import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
 import ru.trubin23.tasks_mvp_kotlin.util.showSnackBar
 
 class TasksFragment : Fragment(), TasksContract.View {
-    override fun showActiveFilterLabel() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showCompletedFilterLabel() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showAllFilterLabel() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override lateinit var mPresenter: TasksContract.Presenter
 
     private lateinit var mNoTasksView: View
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
+
+    private lateinit var mFilteringLabelView: TextView
 
     private val mItemListener: TaskItemListener = object : TaskItemListener {
         override fun onTaskClick(clickedTask: Task) {
@@ -58,6 +49,8 @@ class TasksFragment : Fragment(), TasksContract.View {
         with(root) {
 
             val listView = findViewById<ListView>(R.id.tasks_list).apply { adapter = mListAdapter }
+
+            mFilteringLabelView = findViewById(R.id.filtering_label)
 
             mNoTasksView = findViewById(R.id.no_tasks)
             mNoTasksIcon = findViewById(R.id.no_tasks_icon)
@@ -94,6 +87,30 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     override fun showLoadingTasksError() {
         showMessage(getString(R.string.loading_tasks_error))
+    }
+
+    override fun showActiveFilterLabel() {
+        mFilteringLabelView.text = getString(R.string.label_active)
+    }
+
+    override fun showCompletedFilterLabel() {
+        mFilteringLabelView.text = getString(R.string.label_completed)
+    }
+
+    override fun showAllFilterLabel() {
+        mFilteringLabelView.text = getString(R.string.label_all)
+    }
+
+    override fun showNoActiveTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoCompletedTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showNoTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun showMessage(message: String) {

@@ -25,6 +25,12 @@ interface TasksContract {
         fun showCompletedFilterLabel()
 
         fun showAllFilterLabel()
+
+        fun showNoActiveTasks()
+
+        fun showNoCompletedTasks()
+
+        fun showNoTasks()
     }
 
     interface Presenter : BasePresenter {
