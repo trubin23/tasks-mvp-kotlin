@@ -101,20 +101,30 @@ class TasksFragment : Fragment(), TasksContract.View {
         mFilteringLabelView.text = getString(R.string.label_all)
     }
 
+    private fun showMessage(message: String) {
+        view?.showSnackBar(message, Snackbar.LENGTH_LONG)
+    }
+
     override fun showNoActiveTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showNoTasksViews(resources.getString(R.string.no_tasks_active),
+                R.drawable.ic_verified)
     }
 
     override fun showNoCompletedTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showNoTasksViews(resources.getString(R.string.no_tasks_completed),
+                R.drawable.ic_check_box)
     }
 
     override fun showNoTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showNoTasksViews(resources.getString(R.string.no_tasks_all),
+                R.drawable.ic_check_circle)
     }
 
-    private fun showMessage(message: String) {
-        view?.showSnackBar(message, Snackbar.LENGTH_LONG)
+    private fun showNoTasksViews(mainText: String?, iconRes: Int) {
+        TODO()
+
+        mNoTasksIcon.setImageResource(iconRes)
+
     }
 
     companion object {
