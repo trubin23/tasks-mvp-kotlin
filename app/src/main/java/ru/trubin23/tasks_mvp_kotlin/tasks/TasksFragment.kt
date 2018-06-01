@@ -24,6 +24,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
 
+    private lateinit var mShowTasksView: View
     private lateinit var mFilteringLabelView: TextView
 
     private val mItemListener: TaskItemListener = object : TaskItemListener {
@@ -47,9 +48,10 @@ class TasksFragment : Fragment(), TasksContract.View {
         val root = inflater.inflate(R.layout.tasks_frag, container, false)
 
         with(root) {
-
-            val listView = findViewById<ListView>(R.id.tasks_list).apply { adapter = mListAdapter }
-
+            mShowTasksView = findViewById(R.id.show_tasks)
+            val listView = findViewById<ListView>(R.id.tasks_list).apply {
+                adapter = mListAdapter
+            }
             mFilteringLabelView = findViewById(R.id.filtering_label)
 
             mNoTasksView = findViewById(R.id.no_tasks)
@@ -68,7 +70,9 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun showTasks(tasks: List<Task>) {
-
+        mListAdapter.mTasks = tasks
+        mShowTasksView.visibility = View.VISIBLE
+        mNoTasksView.visibility = View.GONE
     }
 
     override fun showAddTask() {
@@ -120,11 +124,12 @@ class TasksFragment : Fragment(), TasksContract.View {
                 R.drawable.ic_check_circle)
     }
 
-    private fun showNoTasksViews(mainText: String?, iconRes: Int) {
-        TODO()
+    private fun showNoTasksViews(descriptionText: String?, iconRes: Int) {
+        mShowTasksView.visibility = View.GONE
+        mNoTasksView.visibility = View.VISIBLE
 
+        mNoTasksLabel.text = descriptionText
         mNoTasksIcon.setImageResource(iconRes)
-
     }
 
     companion object {

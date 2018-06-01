@@ -13,7 +13,7 @@ import java.util.*
 class TasksAdapter(private val itemListener: TaskItemListener)
     : BaseAdapter() {
 
-    private var mTasks: List<Task> = ArrayList(0)
+    internal var mTasks: List<Task> = ArrayList(0)
         set(tasks) {
             field = tasks
             notifyDataSetChanged()
