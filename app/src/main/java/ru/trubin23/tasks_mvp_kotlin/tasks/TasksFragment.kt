@@ -59,7 +59,11 @@ class TasksFragment : Fragment(), TasksContract.View {
             mNoTasksLabel = findViewById(R.id.no_tasks_label)
         }
 
-        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.setOnClickListener { mPresenter.addNewTask() }
+        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.setOnClickListener {
+            mPresenter.addNewTask()
+        }
+
+        setHasOptionsMenu(true)
 
         return root
     }
