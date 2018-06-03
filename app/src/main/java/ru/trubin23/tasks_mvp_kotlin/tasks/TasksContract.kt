@@ -42,5 +42,9 @@ interface TasksContract {
         fun completeTask(completeTask: Task)
 
         fun activateTask(activateTask: Task)
+
+        fun clearCompletedTasks()
+
+        fun loadTasks()
     }
 }

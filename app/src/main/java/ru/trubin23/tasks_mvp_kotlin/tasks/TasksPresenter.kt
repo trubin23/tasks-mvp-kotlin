@@ -18,9 +18,14 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun start() {
+        loadTasks()
     }
 
-    private fun loadTasks() {
+    override fun loadTasks() {
+        loadTasks(true)
+    }
+
+    private fun loadTasks(showLoadingUI: Boolean) {
         mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback {
             override fun onTasksLoaded(tasks: List<Task>) {
                 val tasksToShow = ArrayList<Task>()
@@ -69,6 +74,10 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
             COMPLETED_TASKS -> mTasksView.showCompletedFilterLabel()
             else -> mTasksView.showAllFilterLabel()
         }
+    }
+
+    override fun clearCompletedTasks() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun addNewTask() {

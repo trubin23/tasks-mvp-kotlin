@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.PopupMenu
 import android.widget.TextView
 import ru.trubin23.tasks_mvp_kotlin.R
 import ru.trubin23.tasks_mvp_kotlin.data.Task
@@ -66,6 +65,25 @@ class TasksFragment : Fragment(), TasksContract.View {
         setHasOptionsMenu(true)
 
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        inflater.inflate(R.menu.tasks_frag_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_filter -> showFilteringPopUpMenu()
+            R.id.menu_clear -> mPresenter.clearCompletedTasks()
+            R.id.menu_refresh -> mPresenter.loadTasks()
+        }
+        return true
+    }
+
+    private fun showFilteringPopUpMenu() {
+        PopupMenu(context, activity?.findViewById(R.id.menu_filter)).apply {
+
+        }
     }
 
     override fun onResume() {
