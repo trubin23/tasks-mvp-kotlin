@@ -8,7 +8,7 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
                      private val mTasksView: TasksContract.View)
     : TasksContract.Presenter {
 
-    private var mCurrentFiltering = TasksFilterType.ALL_TASKS
+    override var mCurrentFiltering = TasksFilterType.ALL_TASKS
 
     private var mFirstLoad = true
 

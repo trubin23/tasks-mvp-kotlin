@@ -35,6 +35,8 @@ interface TasksContract {
 
     interface Presenter : BasePresenter {
 
+        var mCurrentFiltering : TasksFilterType
+
         fun addNewTask()
 
         fun openTaskDetail(requestedTask: Task)

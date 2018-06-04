@@ -85,6 +85,9 @@ class TasksFragment : Fragment(), TasksContract.View {
             menuInflater.inflate(R.menu.filter_tasks, menu)
             setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+                    R.id.menu_active -> mPresenter.mCurrentFiltering = TasksFilterType.ACTIVE_TASKS
+                    R.id.menu_completed -> mPresenter.mCurrentFiltering = TasksFilterType.COMPLETED_TASKS
+                    else -> mPresenter.mCurrentFiltering = TasksFilterType.ALL_TASKS
                 }
                 mPresenter.loadTasks(false)
                 true
