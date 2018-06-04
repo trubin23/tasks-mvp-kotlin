@@ -45,6 +45,6 @@ interface TasksContract {
 
         fun clearCompletedTasks()
 
-        fun loadTasks()
+        fun loadTasks(forceUpdate: Boolean)
     }
 }

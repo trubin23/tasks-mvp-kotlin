@@ -75,14 +75,21 @@ class TasksFragment : Fragment(), TasksContract.View {
         when (item.itemId) {
             R.id.menu_filter -> showFilteringPopUpMenu()
             R.id.menu_clear -> mPresenter.clearCompletedTasks()
-            R.id.menu_refresh -> mPresenter.loadTasks()
+            R.id.menu_refresh -> mPresenter.loadTasks(true)
         }
         return true
     }
 
     private fun showFilteringPopUpMenu() {
         PopupMenu(context, activity?.findViewById(R.id.menu_filter)).apply {
-
+            menuInflater.inflate(R.menu.filter_tasks, menu)
+            setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                }
+                mPresenter.loadTasks(false)
+                true
+            }
+            show()
         }
     }
 

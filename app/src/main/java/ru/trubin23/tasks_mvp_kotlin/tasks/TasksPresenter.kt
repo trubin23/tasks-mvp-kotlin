@@ -3,13 +3,12 @@ package ru.trubin23.tasks_mvp_kotlin.tasks
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
-import ru.trubin23.tasks_mvp_kotlin.tasks.TasksFilterType.*
 
 class TasksPresenter(private val mTasksRepository: TasksRepository,
                      private val mTasksView: TasksContract.View)
     : TasksContract.Presenter {
 
-    private var mCurrentFiltering = ALL_TASKS
+    private var mCurrentFiltering = TasksFilterType.ALL_TASKS
 
     private var mFirstLoad = true
 
@@ -18,25 +17,25 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun start() {
-        loadTasks()
-    }
-
-    override fun loadTasks() {
         loadTasks(true)
     }
 
-    private fun loadTasks(showLoadingUI: Boolean) {
+    override fun loadTasks(forceUpdate: Boolean) {
+        loadTasks(true, true)
+    }
+
+    private fun loadTasks(forceUpdate: Boolean, showLoadingUI: Boolean) {
         mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback {
             override fun onTasksLoaded(tasks: List<Task>) {
                 val tasksToShow = ArrayList<Task>()
 
                 for (task in tasks) {
                     when (mCurrentFiltering) {
-                        ALL_TASKS -> tasksToShow.add(task)
-                        ACTIVE_TASKS -> if (task.isActive) {
+                        TasksFilterType.ALL_TASKS -> tasksToShow.add(task)
+                        TasksFilterType.ACTIVE_TASKS -> if (task.isActive) {
                             tasksToShow.add(task)
                         }
-                        COMPLETED_TASKS -> if (task.mIsCompleted) {
+                        TasksFilterType.COMPLETED_TASKS -> if (task.mIsCompleted) {
                             tasksToShow.add(task)
                         }
                     }
@@ -62,16 +61,16 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
 
     private fun showEmptyTasks() {
         when (mCurrentFiltering) {
-            ACTIVE_TASKS -> mTasksView.showNoActiveTasks()
-            COMPLETED_TASKS -> mTasksView.showNoCompletedTasks()
+            TasksFilterType.ACTIVE_TASKS -> mTasksView.showNoActiveTasks()
+            TasksFilterType.COMPLETED_TASKS -> mTasksView.showNoCompletedTasks()
             else -> mTasksView.showNoTasks()
         }
     }
 
     private fun showFilteringLabel() {
         when (mCurrentFiltering) {
-            ACTIVE_TASKS -> mTasksView.showActiveFilterLabel()
-            COMPLETED_TASKS -> mTasksView.showCompletedFilterLabel()
+            TasksFilterType.ACTIVE_TASKS -> mTasksView.showActiveFilterLabel()
+            TasksFilterType.COMPLETED_TASKS -> mTasksView.showCompletedFilterLabel()
             else -> mTasksView.showAllFilterLabel()
         }
     }
