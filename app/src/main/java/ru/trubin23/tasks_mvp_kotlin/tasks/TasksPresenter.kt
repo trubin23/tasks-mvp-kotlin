@@ -21,10 +21,14 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun loadTasks(forceUpdate: Boolean) {
-        loadTasks(true, true)
+        loadTasks(forceUpdate || mFirstLoad, true)
     }
 
     private fun loadTasks(forceUpdate: Boolean, showLoadingUI: Boolean) {
+        if (showLoadingUI) {
+            mTasksView.setLoadingIndicator(true)
+        }
+
         mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback {
             override fun onTasksLoaded(tasks: List<Task>) {
                 val tasksToShow = ArrayList<Task>()
@@ -41,10 +45,17 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
                     }
                 }
 
+                if (showLoadingUI) {
+                    mTasksView.setLoadingIndicator(false)
+                }
+
                 showTasks(tasksToShow)
             }
 
             override fun onDataNotAvailable() {
+                if (showLoadingUI) {
+                    mTasksView.setLoadingIndicator(false)
+                }
                 mTasksView.showLoadingTasksError()
             }
         })
@@ -76,7 +87,7 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun clearCompletedTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mTasksView.showCompletedTasksCleared()
     }
 
     override fun addNewTask() {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.view.*
 import android.widget.ImageView
 import android.widget.ListView
@@ -19,13 +20,15 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     override lateinit var mPresenter: TasksContract.Presenter
 
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+
     private lateinit var mNoTasksView: View
+
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
-
     private lateinit var mShowTasksView: View
-    private lateinit var mFilteringLabelView: TextView
 
+    private lateinit var mFilteringLabelView: TextView
     private val mItemListener: TaskItemListener = object : TaskItemListener {
         override fun onTaskClick(clickedTask: Task) {
             mPresenter.openTaskDetail(clickedTask)
@@ -47,6 +50,8 @@ class TasksFragment : Fragment(), TasksContract.View {
         val root = inflater.inflate(R.layout.tasks_frag, container, false)
 
         with(root) {
+            mSwipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.refresh_layout)
+
             mShowTasksView = findViewById(R.id.show_tasks)
             val listView = findViewById<ListView>(R.id.tasks_list).apply {
                 adapter = mListAdapter
@@ -113,6 +118,10 @@ class TasksFragment : Fragment(), TasksContract.View {
     override fun showTaskDetail(mId: String) {
     }
 
+    override fun setLoadingIndicator(active: Boolean) {
+        with(mSwipeRefreshLayout) { post{isRefreshing = active} }
+    }
+
     override fun showTaskMarkedComplete() {
         showMessage(getString(R.string.task_marked_complete))
     }
@@ -123,6 +132,10 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     override fun showLoadingTasksError() {
         showMessage(getString(R.string.loading_tasks_error))
+    }
+
+    override fun showCompletedTasksCleared() {
+        showMessage(getString(R.string.completed_tasks_cleared))
     }
 
     override fun showActiveFilterLabel() {

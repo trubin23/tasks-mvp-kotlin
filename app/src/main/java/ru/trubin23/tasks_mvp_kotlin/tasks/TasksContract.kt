@@ -31,6 +31,10 @@ interface TasksContract {
         fun showNoCompletedTasks()
 
         fun showNoTasks()
+
+        fun setLoadingIndicator(active: Boolean)
+
+        fun showCompletedTasksCleared()
     }
 
     interface Presenter : BasePresenter {
