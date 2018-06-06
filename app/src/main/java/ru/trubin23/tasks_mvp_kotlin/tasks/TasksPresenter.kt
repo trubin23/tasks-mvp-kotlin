@@ -86,10 +86,6 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
         }
     }
 
-    override fun clearCompletedTasks() {
-        mTasksView.showCompletedTasksCleared()
-    }
-
     override fun addNewTask() {
         mTasksView.showAddTask()
     }
@@ -99,10 +95,17 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun completeTask(completeTask: Task) {
+        mTasksRepository.completedTask(completeTask)
         mTasksView.showTaskMarkedComplete()
     }
 
     override fun activateTask(activateTask: Task) {
+        mTasksRepository.activateTask(activateTask)
         mTasksView.showTaskMarkedActivate()
+    }
+
+    override fun clearCompletedTasks() {
+        mTasksRepository.clearCompletedTasks()
+        mTasksView.showCompletedTasksCleared()
     }
 }

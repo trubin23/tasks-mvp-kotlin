@@ -6,7 +6,7 @@ import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
 class TasksRepository private constructor(
         val mTasksRemoteDataSource: TasksDataSource,
         val mTasksLocalDataSource: TasksLocalDataSource
-) : TasksDataSource {
+) : TasksMainDataSource {
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
     }
@@ -21,6 +21,15 @@ class TasksRepository private constructor(
     }
 
     override fun deleteTask(taskId: String) {
+    }
+
+    override fun completedTask(completeTask: Task) {
+    }
+
+    override fun activateTask(activateTask: Task) {
+    }
+
+    override fun clearCompletedTasks() {
     }
 
     companion object {
