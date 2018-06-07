@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvp_kotlin.util
 
 import android.content.Context
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
+import ru.trubin23.tasks_mvp_kotlin.data.source.cache.TasksCacheRepository
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksDatabase
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalRepository
 import ru.trubin23.tasks_mvp_kotlin.data.source.remote.TasksRemoteRepository
@@ -11,6 +12,7 @@ object Injection {
         val database = TasksDatabase.getInstance(context)
 
         return TasksRepository.getInstance(TasksRemoteRepository.getInstance(),
-                TasksLocalRepository.getInstance(AppExecutors(), database.tasksDao()))
+                TasksLocalRepository.getInstance(AppExecutors(), database.tasksDao()),
+                TasksCacheRepository.getInstance())
     }
 }

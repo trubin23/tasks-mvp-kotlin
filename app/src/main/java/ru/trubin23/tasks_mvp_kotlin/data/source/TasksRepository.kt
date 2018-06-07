@@ -1,11 +1,13 @@
 package ru.trubin23.tasks_mvp_kotlin.data.source
 
 import ru.trubin23.tasks_mvp_kotlin.data.Task
+import ru.trubin23.tasks_mvp_kotlin.data.source.cache.TasksCacheDataSource
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
 
 class TasksRepository private constructor(
         val mTasksRemoteDataSource: TasksDataSource,
-        val mTasksLocalDataSource: TasksLocalDataSource
+        val mTasksLocalDataSource: TasksLocalDataSource,
+        val mTasksCacheDataSource: TasksCacheDataSource
 ) : TasksMainDataSource {
 
     var mCacheTask: LinkedHashMap<String, Task> = LinkedHashMap()
@@ -42,9 +44,10 @@ class TasksRepository private constructor(
 
         @JvmStatic
         fun getInstance(tasksRemoteDataSource: TasksDataSource,
-                        tasksLocalDataSource: TasksLocalDataSource): TasksRepository {
+                        tasksLocalDataSource: TasksLocalDataSource,
+                        tasksCacheDataSource: TasksCacheDataSource): TasksRepository {
             return INSTANCE ?: TasksRepository(tasksRemoteDataSource,
-                    tasksLocalDataSource).apply { INSTANCE = this }
+                    tasksLocalDataSource, tasksCacheDataSource).apply { INSTANCE = this }
         }
     }
 }
