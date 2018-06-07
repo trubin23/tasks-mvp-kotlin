@@ -47,6 +47,14 @@ class TasksLocalRepository private constructor(
         mAppExecutors.diskIO.execute { mTasksDao.deleteTasks() }
     }
 
+    override fun completedTask(completeTask: Task) {
+        mAppExecutors.diskIO.execute { mTasksDao.updateCompleted(completeTask.mId, true) }
+    }
+
+    override fun activateTask(activateTask: Task) {
+        mAppExecutors.diskIO.execute { mTasksDao.updateCompleted(activateTask.mId, false) }
+    }
+
     companion object {
         private var INSTANCE: TasksLocalRepository? = null
 

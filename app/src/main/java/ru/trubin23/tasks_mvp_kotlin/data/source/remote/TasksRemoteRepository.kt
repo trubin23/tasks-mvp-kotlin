@@ -20,6 +20,12 @@ class TasksRemoteRepository private constructor() : TasksDataSource {
     override fun deleteTask(taskId: String) {
     }
 
+    override fun completedTask(completeTask: Task) {
+    }
+
+    override fun activateTask(activateTask: Task) {
+    }
+
     companion object {
         private var INSTANCE: TasksRemoteRepository? = null
 

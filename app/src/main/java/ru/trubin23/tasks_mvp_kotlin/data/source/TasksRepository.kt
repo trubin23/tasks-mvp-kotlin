@@ -8,6 +8,10 @@ class TasksRepository private constructor(
         val mTasksLocalDataSource: TasksLocalDataSource
 ) : TasksMainDataSource {
 
+    var mCacheTask: LinkedHashMap<String, Task> = LinkedHashMap()
+
+    var mCacheIsDirty = false
+
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
     }
 
