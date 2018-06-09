@@ -4,16 +4,33 @@ import ru.trubin23.tasks_mvp_kotlin.data.Task
 
 class TasksCacheRepository : TasksCacheDataSource {
 
-    override fun getTasks(): List<Task> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private val mCachedTask: HashMap<String, Task> = LinkedHashMap()
+
+    private var mCacheIsDirty = false
+
+    override fun getTasks(): List<Task>? {
+        return if (cacheNotAvailable()){
+            null
+        } else {
+            ArrayList(mCachedTask.values)
+        }
     }
 
     override fun setTasks(tasks: List<Task>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCachedTask.clear()
+
+        for (task in tasks){
+            mCachedTask[task.mId] = task
+        }
+        mCacheIsDirty = false
     }
 
-    override fun getTaskById(taskId: String): Task {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getTaskById(taskId: String): Task? {
+        return if (cacheNotAvailable()){
+            null
+        } else {
+            mCachedTask[taskId]
+        }
     }
 
     override fun addTask(task: Task) {
@@ -33,7 +50,11 @@ class TasksCacheRepository : TasksCacheDataSource {
     }
 
     override fun irrelevantState() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCacheIsDirty = true
+    }
+
+    private fun cacheNotAvailable(): Boolean {
+        return mCacheIsDirty || mCachedTask.isEmpty()
     }
 
     companion object {
