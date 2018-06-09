@@ -34,19 +34,28 @@ class TasksCacheRepository : TasksCacheDataSource {
     }
 
     override fun addTask(task: Task) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCachedTask[task.mId] = task
     }
 
     override fun removeTask(taskId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCachedTask.remove(taskId)
     }
 
     override fun completedTask(taskId: String, completed: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val task: Task? = getTaskById(taskId)
+        if (task != null){
+            task.mIsCompleted = completed
+        }
     }
 
     override fun clearCompletedTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val iterator = mCachedTask.entries.iterator()
+        while (iterator.hasNext()) {
+            val entry = iterator.next()
+            if (entry.value.mIsCompleted) {
+                iterator.remove()
+            }
+        }
     }
 
     override fun irrelevantState() {
