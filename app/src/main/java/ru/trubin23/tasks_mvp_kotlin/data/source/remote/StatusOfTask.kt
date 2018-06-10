@@ -3,7 +3,7 @@ package ru.trubin23.tasks_mvp_kotlin.data.source.remote
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-internal class StatusOfTask(completed: Boolean) {
+class StatusOfTask(completed: Boolean) {
 
     @SerializedName("completed")
     @Expose

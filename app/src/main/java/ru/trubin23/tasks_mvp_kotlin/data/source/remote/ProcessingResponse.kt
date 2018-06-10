@@ -6,9 +6,9 @@ import retrofit2.Response
 
 class ProcessingResponse<T> : Callback<T> {
     override fun onResponse(call: Call<T>?, response: Response<T>) {
-        if (response.isSuccessful){
+        if (response.isSuccessful) {
             val body = response.body()
-            if (body != null){
+            if (body != null) {
                 responseBody(body)
             } else {
                 dataNotAvailable()
