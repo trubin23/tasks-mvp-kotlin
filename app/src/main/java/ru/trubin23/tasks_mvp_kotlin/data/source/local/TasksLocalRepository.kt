@@ -2,6 +2,8 @@ package ru.trubin23.tasks_mvp_kotlin.data.source.local
 
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
+import ru.trubin23.tasks_mvp_kotlin.data.source.remote.ProcessingResponse
+import ru.trubin23.tasks_mvp_kotlin.data.source.remote.RetrofitClient
 import ru.trubin23.tasks_mvp_kotlin.util.AppExecutors
 
 class TasksLocalRepository private constructor(
@@ -47,12 +49,12 @@ class TasksLocalRepository private constructor(
         mAppExecutors.diskIO.execute { mTasksDao.deleteTasks() }
     }
 
-    override fun completedTask(completeTask: Task) {
-        mAppExecutors.diskIO.execute { mTasksDao.updateCompleted(completeTask.mId, true) }
+    override fun completedTask(taskId: String, completed: Boolean) {
+        mAppExecutors.diskIO.execute { mTasksDao.updateCompleted(taskId, completed) }
     }
 
-    override fun activateTask(activateTask: Task) {
-        mAppExecutors.diskIO.execute { mTasksDao.updateCompleted(activateTask.mId, false) }
+    override fun clearCompletedTasks() {
+        mAppExecutors.diskIO.execute({ mTasksDao.deleteCompletedTasks() })
     }
 
     companion object {

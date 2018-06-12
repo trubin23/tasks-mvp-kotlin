@@ -8,7 +8,7 @@ class TasksRepository private constructor(
         val mTasksRemoteDataSource: TasksDataSource,
         val mTasksLocalDataSource: TasksLocalDataSource,
         val mTasksCacheDataSource: TasksCacheDataSource
-) : TasksMainDataSource {
+) : TasksDataSource {
 
     var mCacheTask: LinkedHashMap<String, Task> = LinkedHashMap()
 
@@ -29,10 +29,7 @@ class TasksRepository private constructor(
     override fun deleteTask(taskId: String) {
     }
 
-    override fun completedTask(completeTask: Task) {
-    }
-
-    override fun activateTask(activateTask: Task) {
+    override fun completedTask(taskId: String, completed: Boolean) {
     }
 
     override fun clearCompletedTasks() {

@@ -63,10 +63,18 @@ class TasksRemoteRepository private constructor(
         })
     }
 
-    override fun completedTask(completeTask: Task) {
+    override fun completedTask(taskId: String, completed: Boolean) {
+        val statusOfTask = StatusOfTask(completed)
+
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.completeTask(taskId, statusOfTask, ProcessingResponse())
+        })
     }
 
-    override fun activateTask(activateTask: Task) {
+    override fun clearCompletedTasks() {
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.deleteCompletedTasks(ProcessingResponse())
+        })
     }
 
     companion object {

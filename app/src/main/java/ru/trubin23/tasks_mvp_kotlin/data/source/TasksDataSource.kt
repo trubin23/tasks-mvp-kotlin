@@ -28,7 +28,7 @@ interface TasksDataSource {
 
     fun deleteTask(taskId: String)
 
-    fun completedTask(completeTask: Task)
+    fun completedTask(taskId: String, completed: Boolean)
 
-    fun activateTask(activateTask: Task)
+    fun clearCompletedTasks()
 }
