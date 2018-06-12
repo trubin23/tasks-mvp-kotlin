@@ -4,7 +4,8 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-open class RetrofitClient {
+object RetrofitClient {
+    private const val BASE_URL = "https://trubin23.ru"
 
     private var sRemoteService: RemoteService? = null
 
@@ -20,8 +21,8 @@ open class RetrofitClient {
         return sRemoteService!!
     }
 
-    open fun getTasks(callback: Callback<List<NetworkTask>>) {
-        val remoteService = getRemoteService()
+    fun getTasks(callback: Callback<List<NetworkTask>>) {
+        val remoteService = RetrofitClient.getRemoteService()
         remoteService.getTasks().enqueue(callback)
     }
 
@@ -54,9 +55,5 @@ open class RetrofitClient {
     fun deleteCompletedTasks(callback: Callback<Int>) {
         val remoteService = getRemoteService()
         remoteService.deleteCompletedTasks().enqueue(callback)
-    }
-
-    companion object {
-        const val BASE_URL = "https://trubin23.ru"
     }
 }

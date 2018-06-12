@@ -6,35 +6,61 @@ import ru.trubin23.tasks_mvp_kotlin.util.AppExecutors
 
 
 class TasksRemoteRepository private constructor(
-        private val appExecutors: AppExecutors
+        private val mAppExecutors: AppExecutors
 ) : TasksDataSource {
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
-        appExecutors.networkIO.execute({
-//            RetrofitClient.getTasks(
-//                    object : ProcessingResponse<List<NetworkTask>>() {
-//                        override fun responseBody(body: List<NetworkTask>) {
-//                            val tasks = TaskMapper.networkTaskListToTaskList(body)
-//                            callback.onTasksLoaded(tasks)
-//                        }
-//
-//                        override fun dataNotAvailable() {
-//                            callback.onDataNotAvailable()
-//                        }
-//                    })
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.getTasks(
+                    object : ProcessingResponse<List<NetworkTask>>() {
+                        override fun responseBody(body: List<NetworkTask>) {
+                            val tasks = TaskMapper.networkTaskListToTaskList(body)
+                            mAppExecutors.mainThread.execute { callback.onTasksLoaded(tasks) }
+                        }
+
+                        override fun dataNotAvailable() {
+                            mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
+                        }
+                    })
         })
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.getTask(taskId,
+                    object : ProcessingResponse<NetworkTask>() {
+                        override fun responseBody(body: NetworkTask) {
+                            val task = TaskMapper.networkTaskToTask(body)
+                            mAppExecutors.mainThread.execute { callback.onTaskLoaded(task) }
+                        }
+
+                        override fun dataNotAvailable() {
+                            mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
+                        }
+                    })
+        })
     }
 
     override fun saveTask(task: Task) {
+        val networkTask = TaskMapper.taskToNetworkTask(task)
+
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.addTask(networkTask, ProcessingResponse())
+        })
     }
 
     override fun updateTask(task: Task) {
+        val networkTask = TaskMapper.taskToNetworkTask(task)
+
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.updateTask(networkTask, ProcessingResponse())
+        })
     }
 
     override fun deleteTask(taskId: String) {
+        mAppExecutors.networkIO.execute({
+            RetrofitClient.deleteTask(taskId, ProcessingResponse())
+        })
     }
 
     override fun completedTask(completeTask: Task) {
