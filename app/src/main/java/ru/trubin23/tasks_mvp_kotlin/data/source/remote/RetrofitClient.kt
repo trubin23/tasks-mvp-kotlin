@@ -4,7 +4,7 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitClient {
+open class RetrofitClient {
 
     private var sRemoteService: RemoteService? = null
 
@@ -20,7 +20,7 @@ class RetrofitClient {
         return sRemoteService!!
     }
 
-    fun getTasks(callback: Callback<List<NetworkTask>>) {
+    open fun getTasks(callback: Callback<List<NetworkTask>>) {
         val remoteService = getRemoteService()
         remoteService.getTasks().enqueue(callback)
     }

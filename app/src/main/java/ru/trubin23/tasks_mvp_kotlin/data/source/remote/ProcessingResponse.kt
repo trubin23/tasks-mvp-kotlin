@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProcessingResponse<T> : Callback<T> {
+open class ProcessingResponse<T> : Callback<T> {
     override fun onResponse(call: Call<T>?, response: Response<T>) {
         if (response.isSuccessful) {
             val body = response.body()
@@ -22,11 +22,11 @@ class ProcessingResponse<T> : Callback<T> {
         dataNotAvailable()
     }
 
-    fun responseBody(body: T) {
+    open fun responseBody(body: T) {
 
     }
 
-    fun dataNotAvailable() {
+    open fun dataNotAvailable() {
 
     }
 }
