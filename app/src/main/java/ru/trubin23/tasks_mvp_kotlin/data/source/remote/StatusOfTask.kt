@@ -7,11 +7,7 @@ class StatusOfTask(completed: Boolean) {
 
     @SerializedName("completed")
     @Expose
-    var mCompleted: Int? = null
-
-    init {
-        mCompleted = booleanToInteger(completed)
-    }
+    var mCompleted: Int = booleanToInteger(completed)
 
     companion object {
 
