@@ -48,7 +48,7 @@ class TasksCacheRepository : TasksCacheDataSource {
         }
     }
 
-    override fun clearCompletedTask() {
+    override fun clearCompletedTasks() {
         val iterator = mCachedTask.entries.iterator()
         while (iterator.hasNext()) {
             val entry = iterator.next()

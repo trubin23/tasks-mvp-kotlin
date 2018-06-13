@@ -16,7 +16,7 @@ interface TasksCacheDataSource {
 
     fun completedTask(taskId: String, completed: Boolean)
 
-    fun clearCompletedTask()
+    fun clearCompletedTasks()
 
     fun irrelevantState()
 }

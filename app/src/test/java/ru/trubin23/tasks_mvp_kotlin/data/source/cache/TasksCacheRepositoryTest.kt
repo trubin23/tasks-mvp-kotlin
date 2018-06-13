@@ -44,7 +44,7 @@ class TasksCacheRepositoryTest {
 
     @Test
     fun clearCompletedTask_test() {
-        tasksCacheRepository.clearCompletedTask()
+        tasksCacheRepository.clearCompletedTasks()
 
         val expected = ITEMS_COUNT - ITEMS_COUNT / PROPORTION_COMPLETED_ITEMS
         assertEquals(expected, tasksCacheRepository.getTasks()?.size)
