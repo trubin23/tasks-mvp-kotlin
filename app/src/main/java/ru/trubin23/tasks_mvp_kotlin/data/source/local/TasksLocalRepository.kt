@@ -2,8 +2,6 @@ package ru.trubin23.tasks_mvp_kotlin.data.source.local
 
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.TasksDataSource
-import ru.trubin23.tasks_mvp_kotlin.data.source.remote.ProcessingResponse
-import ru.trubin23.tasks_mvp_kotlin.data.source.remote.RetrofitClient
 import ru.trubin23.tasks_mvp_kotlin.util.AppExecutors
 
 class TasksLocalRepository private constructor(

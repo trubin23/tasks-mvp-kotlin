@@ -3,8 +3,6 @@ package ru.trubin23.tasks_mvp_kotlin.data.source
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.cache.TasksCacheDataSource
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
-import android.support.annotation.NonNull
-
 
 
 class TasksRepository private constructor(
@@ -68,6 +66,37 @@ class TasksRepository private constructor(
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
+        val task = mTasksCacheDataSource.getTaskById(taskId)
+        if (task != null) {
+            callback.onTaskLoaded(task)
+            return
+        }
+
+        mTasksLocalDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
+            override fun onTaskLoaded(task: Task) {
+                mTasksCacheDataSource.addTask(task)
+                callback.onTaskLoaded(task)
+            }
+
+            override fun onDataNotAvailable() {
+                getOneTaskFromRemoteDataSource(taskId, callback)
+            }
+        })
+    }
+
+    private fun getOneTaskFromRemoteDataSource(taskId: String,
+                                               callback: TasksDataSource.GetTaskCallback) {
+        mTasksRemoteDataSource.getTask(taskId, object : TasksDataSource.GetTaskCallback {
+            override fun onTaskLoaded(task: Task) {
+                mTasksCacheDataSource.addTask(task)
+                mTasksLocalDataSource.saveTask(task)
+                callback.onTaskLoaded(task)
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+        })
     }
 
     override fun saveTask(task: Task) {

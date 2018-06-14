@@ -22,11 +22,15 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
 
     override fun loadTasks(forceUpdate: Boolean) {
         loadTasks(forceUpdate || mFirstLoad, true)
+        mFirstLoad = false
     }
 
     private fun loadTasks(forceUpdate: Boolean, showLoadingUI: Boolean) {
         if (showLoadingUI) {
             mTasksView.setLoadingIndicator(true)
+        }
+        if (forceUpdate){
+            mTasksRepository.refreshTasks()
         }
 
         mTasksRepository.getTasks(object : TasksDataSource.LoadTasksCallback {
@@ -95,12 +99,12 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     }
 
     override fun completeTask(completeTask: Task) {
-        //mTasksRepository.completedTask(completeTask)
+        mTasksRepository.completedTask(completeTask.mId, true)
         mTasksView.showTaskMarkedComplete()
     }
 
     override fun activateTask(activateTask: Task) {
-        //mTasksRepository.activateTask(activateTask)
+        mTasksRepository.completedTask(activateTask.mId, false)
         mTasksView.showTaskMarkedActivate()
     }
 
