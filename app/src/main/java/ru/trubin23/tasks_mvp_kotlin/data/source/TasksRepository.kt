@@ -3,6 +3,9 @@ package ru.trubin23.tasks_mvp_kotlin.data.source
 import ru.trubin23.tasks_mvp_kotlin.data.Task
 import ru.trubin23.tasks_mvp_kotlin.data.source.cache.TasksCacheDataSource
 import ru.trubin23.tasks_mvp_kotlin.data.source.local.TasksLocalDataSource
+import android.support.annotation.NonNull
+
+
 
 class TasksRepository private constructor(
         val mTasksRemoteDataSource: TasksDataSource,
@@ -13,7 +16,55 @@ class TasksRepository private constructor(
     private var mForceRefresh: Boolean = false
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
+        val tasks = mTasksCacheDataSource.getTasks()
+        if (tasks != null) {
+            callback.onTasksLoaded(tasks)
+            return
+        }
 
+        if (mForceRefresh) {
+            getTasksFromRemoteDataSource(callback, true)
+        } else {
+            getTasksFromLocalDataSource(callback, true)
+        }
+    }
+
+    private fun getTasksFromLocalDataSource(callback: TasksDataSource.LoadTasksCallback,
+                                            handleErrors: Boolean) {
+        mTasksLocalDataSource.getTasks(object : TasksDataSource.LoadTasksCallback {
+            override fun onTasksLoaded(tasks: List<Task>) {
+                mTasksCacheDataSource.setTasks(tasks)
+                callback.onTasksLoaded(tasks)
+            }
+
+            override fun onDataNotAvailable() {
+                if (handleErrors) {
+                    getTasksFromRemoteDataSource(callback, false)
+                } else {
+                    callback.onDataNotAvailable()
+                }
+            }
+        })
+    }
+
+    private fun getTasksFromRemoteDataSource(callback: TasksDataSource.LoadTasksCallback,
+                                             handleErrors: Boolean) {
+        mTasksRemoteDataSource.getTasks(object : TasksDataSource.LoadTasksCallback {
+            override fun onTasksLoaded(tasks: List<Task>) {
+                mTasksCacheDataSource.setTasks(tasks)
+                mTasksLocalDataSource.setTasks(tasks)
+                mForceRefresh = false
+                callback.onTasksLoaded(tasks)
+            }
+
+            override fun onDataNotAvailable() {
+                if (handleErrors) {
+                    getTasksFromLocalDataSource(callback, false)
+                } else {
+                    callback.onDataNotAvailable()
+                }
+            }
+        })
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {

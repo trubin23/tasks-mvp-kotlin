@@ -10,7 +10,6 @@ class TasksLocalRepository private constructor(
         private val mAppExecutors: AppExecutors,
         private val mTasksDao: TasksDao
 ) : TasksLocalDataSource {
-
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
         mAppExecutors.diskIO.execute {
             val tasks = mTasksDao.getTasks()
@@ -20,6 +19,10 @@ class TasksLocalRepository private constructor(
                 mAppExecutors.mainThread.execute { callback.onTasksLoaded(tasks) }
             }
         }
+    }
+
+    override fun setTasks(tasks: List<Task>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
