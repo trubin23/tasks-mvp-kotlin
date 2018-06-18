@@ -1,4 +1,6 @@
 package ru.trubin23.tasks_mvp_kotlin.statistics
 
-class StatisticsFragment {
+import android.support.v4.app.Fragment
+
+class StatisticsFragment : Fragment() {
 }

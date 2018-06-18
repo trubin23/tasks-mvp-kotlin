@@ -1,4 +1,6 @@
 package ru.trubin23.tasks_mvp_kotlin.taskdetail
 
-class TaskDetailFragment {
+import android.support.v4.app.Fragment
+
+class TaskDetailFragment : Fragment() {
 }
