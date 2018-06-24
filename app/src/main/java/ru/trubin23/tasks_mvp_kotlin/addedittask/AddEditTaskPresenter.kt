@@ -1,7 +1,11 @@
 package ru.trubin23.tasks_mvp_kotlin.addedittask
 
-class AddEditTaskPresenter : AddEditTaskContract.Presenter {
+import ru.trubin23.tasks_mvp_kotlin.data.source.TasksRepository
+import ru.trubin23.tasks_mvp_kotlin.taskdetail.TaskDetailContract
+
+class AddEditTaskPresenter(private val mTasksRepository: TasksRepository,
+                           private val mTaskDetailView: AddEditTaskContract.View)
+    : AddEditTaskContract.Presenter {
     override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
