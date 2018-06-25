@@ -15,4 +15,8 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.statistics_frag, container, false)
     }
+
+    companion object {
+        fun newInstance() = StatisticsFragment()
+    }
 }

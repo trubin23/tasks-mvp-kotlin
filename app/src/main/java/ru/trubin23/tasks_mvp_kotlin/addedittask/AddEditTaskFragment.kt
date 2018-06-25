@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.trubin23.tasks_mvp_kotlin.R
-import ru.trubin23.tasks_mvp_kotlin.taskdetail.TaskDetailFragment
 
 class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
