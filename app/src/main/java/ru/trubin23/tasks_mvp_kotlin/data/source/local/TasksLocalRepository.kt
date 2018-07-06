@@ -20,7 +20,7 @@ class TasksLocalRepository private constructor(
     }
 
     override fun setTasks(tasks: List<Task>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
