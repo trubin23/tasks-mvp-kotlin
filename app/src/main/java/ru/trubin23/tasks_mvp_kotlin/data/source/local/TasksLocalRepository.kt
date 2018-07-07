@@ -20,7 +20,10 @@ class TasksLocalRepository private constructor(
     }
 
     override fun setTasks(tasks: List<Task>) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mAppExecutors.diskIO.execute {
+            mTasksDao.deleteTasks()
+            mTasksDao.insertTasks(tasks)
+        }
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
@@ -55,7 +58,7 @@ class TasksLocalRepository private constructor(
     }
 
     override fun clearCompletedTasks() {
-        mAppExecutors.diskIO.execute({ mTasksDao.deleteCompletedTasks() })
+        mAppExecutors.diskIO.execute { mTasksDao.deleteCompletedTasks() }
     }
 
     companion object {

@@ -50,7 +50,7 @@ class TasksFragment : Fragment(), TasksContract.View {
         val root = inflater.inflate(R.layout.tasks_frag, container, false)
 
         with(root) {
-            mSwipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.refresh_layout)
+            mSwipeRefreshLayout = findViewById(R.id.refresh_layout)
 
             mShowTasksView = findViewById(R.id.show_tasks)
             val listView = findViewById<ListView>(R.id.tasks_list).apply {
