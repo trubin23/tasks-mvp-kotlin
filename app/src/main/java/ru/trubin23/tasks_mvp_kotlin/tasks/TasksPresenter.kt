@@ -101,15 +101,18 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
     override fun completeTask(completeTask: Task) {
         mTasksRepository.completedTask(completeTask.mId, true)
         mTasksView.showTaskMarkedComplete()
+        loadTasks(false, false)
     }
 
     override fun activateTask(activateTask: Task) {
         mTasksRepository.completedTask(activateTask.mId, false)
         mTasksView.showTaskMarkedActivate()
+        loadTasks(false, false)
     }
 
     override fun clearCompletedTasks() {
         mTasksRepository.clearCompletedTasks()
         mTasksView.showCompletedTasksCleared()
+        loadTasks(false, false)
     }
 }

@@ -51,6 +51,7 @@ class TasksFragment : Fragment(), TasksContract.View {
 
         with(root) {
             mSwipeRefreshLayout = findViewById(R.id.refresh_layout)
+            mSwipeRefreshLayout.setOnRefreshListener { mPresenter.loadTasks(false) }
 
             mShowTasksView = findViewById(R.id.show_tasks)
             val listView = findViewById<ListView>(R.id.tasks_list).apply {
