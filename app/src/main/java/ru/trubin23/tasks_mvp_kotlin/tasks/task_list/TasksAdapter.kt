@@ -36,7 +36,7 @@ class TasksAdapter(private val itemListener: TaskItemListener)
             } else {
                 R.drawable.touch_feedback
             }
-            rowView.setBackgroundColor(rowViewBackground)
+            rowView.setBackgroundResource(rowViewBackground)
 
             setOnClickListener {
                 if (!task.mIsCompleted) {
