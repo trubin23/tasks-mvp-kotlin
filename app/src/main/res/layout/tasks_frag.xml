@@ -17,6 +17,9 @@
 
             <TextView
                     android:id="@+id/filtering_label"
+                    android:layout_margin="@dimen/list_item_margin"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
