@@ -19,4 +19,8 @@ class AddEditTaskActivity : AppCompatActivity() {
 
         AddEditTaskPresenter(Injection.provideTasksRepository(applicationContext), addEditTaskFragment)
     }
+
+    companion object {
+        const val REQUEST_ADD_TASK = 1
+    }
 }

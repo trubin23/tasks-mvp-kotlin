@@ -19,4 +19,8 @@ class TaskDetailActivity : AppCompatActivity() {
 
         TaskDetailPresenter(Injection.provideTasksRepository(applicationContext), taskDetailFragment)
     }
+
+    companion object {
+        const val EXTRA_TASK_ID = "TASK_ID"
+    }
 }

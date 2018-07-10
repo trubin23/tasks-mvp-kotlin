@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvp_kotlin.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -11,7 +12,9 @@ import android.widget.ListView
 import android.widget.PopupMenu
 import android.widget.TextView
 import ru.trubin23.tasks_mvp_kotlin.R
+import ru.trubin23.tasks_mvp_kotlin.addedittask.AddEditTaskActivity
 import ru.trubin23.tasks_mvp_kotlin.data.Task
+import ru.trubin23.tasks_mvp_kotlin.taskdetail.TaskDetailActivity
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TaskItemListener
 import ru.trubin23.tasks_mvp_kotlin.tasks.task_list.TasksAdapter
 import ru.trubin23.tasks_mvp_kotlin.util.showSnackBar
@@ -114,9 +117,15 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun showAddTask() {
+        val intent = Intent(context, AddEditTaskActivity::class.java)
+        startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK)
     }
 
-    override fun showTaskDetail(mId: String) {
+    override fun showTaskDetail(taskId: String) {
+        val intent = Intent(context, TaskDetailActivity::class.java).apply {
+            putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId)
+        }
+        startActivity(intent)
     }
 
     override fun setLoadingIndicator(active: Boolean) {

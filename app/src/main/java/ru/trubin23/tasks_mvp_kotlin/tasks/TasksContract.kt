@@ -10,7 +10,7 @@ interface TasksContract {
 
         fun showAddTask()
 
-        fun showTaskDetail(mId: String)
+        fun showTaskDetail(taskId: String)
 
         fun showTaskMarkedComplete()
 
