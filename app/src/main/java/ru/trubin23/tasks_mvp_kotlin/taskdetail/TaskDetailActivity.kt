@@ -12,12 +12,15 @@ class TaskDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.taskdetail_act)
 
+        val taskId = intent.getStringExtra(EXTRA_TASK_ID)
+
         val taskDetailFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
                 as TaskDetailFragment? ?: TaskDetailFragment.newInstance().also {
             addFragmentToActivity(it, R.id.content_frame)
         }
 
-        TaskDetailPresenter(Injection.provideTasksRepository(applicationContext), taskDetailFragment)
+        TaskDetailPresenter(taskId, Injection.provideTasksRepository(applicationContext),
+                taskDetailFragment)
     }
 
     companion object {
