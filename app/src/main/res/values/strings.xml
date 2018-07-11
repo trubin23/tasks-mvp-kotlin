@@ -26,4 +26,7 @@
 
     <string name="task_list">Task list</string>
     <string name="statistics">Statistics</string>
+
+    <string name="title_hint">Title</string>
+    <string name="description_hint">Enter your task here.</string>
 </resources>
