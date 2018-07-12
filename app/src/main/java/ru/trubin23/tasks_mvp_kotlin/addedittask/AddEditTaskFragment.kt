@@ -13,7 +13,15 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.addtask_frag, container, false)
+        val root = inflater.inflate(R.layout.addtask_frag, container, false)
+        with(root){
+        }
+        return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter.start()
     }
 
     companion object {
