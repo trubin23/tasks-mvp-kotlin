@@ -2,9 +2,7 @@ package ru.trubin23.tasks_mvp_kotlin.taskdetail
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import ru.trubin23.tasks_mvp_kotlin.R
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
@@ -22,6 +20,18 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     override fun onResume() {
         super.onResume()
         mPresenter.start()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        inflater.inflate(R.menu.taskdetail_frag_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val deletePressed = item.itemId == R.id.menu_delete
+        if (deletePressed){
+            mPresenter.deleteTask()
+        }
+        return deletePressed
     }
 
     companion object {

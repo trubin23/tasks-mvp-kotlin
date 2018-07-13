@@ -9,5 +9,6 @@ interface TaskDetailContract {
     }
 
     interface Presenter : BasePresenter {
+        fun deleteTask()
     }
 }
