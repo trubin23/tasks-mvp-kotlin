@@ -34,6 +34,14 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         return deletePressed
     }
 
+    override fun showMissingTask() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTaskDelete() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
         fun newInstance() = TaskDetailFragment()
     }

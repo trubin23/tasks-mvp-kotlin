@@ -16,5 +16,11 @@ class TaskDetailPresenter(
     }
 
     override fun deleteTask() {
+        if (mTaskId.isEmpty()){
+            mTaskDetailView.showMissingTask()
+            return
+        }
+        mTasksRepository.deleteTask(mTaskId)
+        mTaskDetailView.showTaskDelete()
     }
 }
