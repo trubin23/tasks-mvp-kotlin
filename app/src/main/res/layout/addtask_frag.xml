@@ -7,10 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_padding"
-        android:paddingEnd="@dimen/activity_horizontal_padding"
-        android:paddingStart="@dimen/activity_horizontal_padding"
-        android:paddingTop="@dimen/activity_vertical_padding">
+        android:padding="@dimen/activity_padding">
 
         <EditText
             android:id="@+id/add_task_title"

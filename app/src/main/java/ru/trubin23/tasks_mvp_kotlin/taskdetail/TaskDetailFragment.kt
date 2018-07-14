@@ -3,9 +3,15 @@ package ru.trubin23.tasks_mvp_kotlin.taskdetail
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
+import android.widget.CheckBox
+import android.widget.TextView
 import ru.trubin23.tasks_mvp_kotlin.R
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
+
+    private lateinit var mComplete: CheckBox
+    private lateinit var mTitle: TextView
+    private lateinit var mDescription: TextView
 
     override lateinit var mPresenter: TaskDetailContract.Presenter
 
@@ -13,6 +19,9 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.taskdetail_frag, container, false)
         with(root){
+            mComplete = findViewById(R.id.task_detail_complete)
+            mTitle = findViewById(R.id.task_detail_title)
+            mDescription = findViewById(R.id.task_detail_description)
         }
         return root
     }
