@@ -40,4 +40,7 @@ class TaskDetailPresenter(
         mTasksRepository.deleteTask(mTaskId)
         mTaskDetailView.showTaskDelete()
     }
+
+    override fun editTask() {
+    }
 }

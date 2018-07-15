@@ -1,6 +1,7 @@
 package ru.trubin23.tasksmvpkotlin.taskdetail
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.CheckBox
@@ -19,11 +20,15 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.taskdetail_frag, container, false)
-        with(root){
+        with(root) {
             mComplete = findViewById(R.id.task_detail_complete)
             mTitle = findViewById(R.id.task_detail_title)
             mDescription = findViewById(R.id.task_detail_description)
         }
+
+        activity?.findViewById<FloatingActionButton>(R.id.fab_edit_task)
+                ?.setOnClickListener { mPresenter.editTask() }
+
         return root
     }
 
@@ -38,7 +43,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val deletePressed = item.itemId == R.id.menu_delete
-        if (deletePressed){
+        if (deletePressed) {
             mPresenter.deleteTask()
         }
         return deletePressed
