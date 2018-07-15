@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.CheckBox
 import android.widget.TextView
 import ru.trubin23.tasksmvpkotlin.R
+import ru.trubin23.tasksmvpkotlin.data.Task
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
@@ -41,6 +42,17 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
             mPresenter.deleteTask()
         }
         return deletePressed
+    }
+
+    override fun showTask(task: Task) {
+        mComplete.isChecked = task.mIsCompleted
+        mTitle.text = task.mTitle
+        mDescription.text = task.mDescription
+    }
+
+    override fun showLoadingIndicator() {
+        mTitle.text = ""
+        mDescription.text = getString(R.string.no_data)
     }
 
     override fun showMissingTask() {

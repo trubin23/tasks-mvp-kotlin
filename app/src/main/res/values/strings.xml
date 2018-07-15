@@ -29,6 +29,7 @@
 
     <string name="title_hint">Title</string>
     <string name="description_hint">Enter your task here.</string>
+
     <string name="menu_delete_task">Delete task</string>
 
     <string name="no_data">No data</string>

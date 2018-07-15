@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("ru.trubin23.tasks_mvp_kotlin", appContext.packageName)
+        assertEquals("ru.trubin23.tasksmvpkotlin", appContext.packageName)
     }
 }

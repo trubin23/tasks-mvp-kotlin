@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "ru.trubin23.tasks_mvp_kotlin"
+        applicationId "ru.trubin23.tasksmvpkotlin"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

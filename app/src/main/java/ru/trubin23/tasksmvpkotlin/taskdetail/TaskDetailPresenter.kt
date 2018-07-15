@@ -1,5 +1,7 @@
 package ru.trubin23.tasksmvpkotlin.taskdetail
 
+import ru.trubin23.tasksmvpkotlin.data.Task
+import ru.trubin23.tasksmvpkotlin.data.source.TasksDataSource
 import ru.trubin23.tasksmvpkotlin.data.source.TasksRepository
 
 class TaskDetailPresenter(
@@ -13,6 +15,21 @@ class TaskDetailPresenter(
     }
 
     override fun start() {
+        if (mTaskId.isEmpty()){
+            mTaskDetailView.showMissingTask()
+            return
+        }
+
+        mTaskDetailView.showLoadingIndicator()
+        mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback{
+            override fun onTaskLoaded(task: Task) {
+                mTaskDetailView.showTask(task)
+            }
+
+            override fun onDataNotAvailable() {
+                mTaskDetailView.showMissingTask()
+            }
+        })
     }
 
     override fun deleteTask() {
