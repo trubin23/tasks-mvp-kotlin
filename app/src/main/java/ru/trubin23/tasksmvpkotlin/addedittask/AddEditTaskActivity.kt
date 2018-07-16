@@ -27,5 +27,6 @@ class AddEditTaskActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_TASK_ID = "TASK_ID"
         const val REQUEST_ADD_TASK = 1
+        const val REQUEST_EDIT_TASK = 2
     }
 }

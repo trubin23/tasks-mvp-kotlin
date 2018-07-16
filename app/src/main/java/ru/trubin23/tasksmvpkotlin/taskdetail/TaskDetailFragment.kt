@@ -1,5 +1,7 @@
 package ru.trubin23.tasksmvpkotlin.taskdetail
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -7,6 +9,8 @@ import android.view.*
 import android.widget.CheckBox
 import android.widget.TextView
 import ru.trubin23.tasksmvpkotlin.R
+import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
+import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity.Companion.REQUEST_EDIT_TASK
 import ru.trubin23.tasksmvpkotlin.data.Task
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
@@ -67,6 +71,20 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
     override fun showTaskDelete() {
         activity?.finish()
+    }
+
+    override fun showEditTask(taskId: String) {
+        val intent = Intent(context, AddEditTaskActivity::class.java)
+        intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, taskId)
+        startActivityForResult(intent, REQUEST_EDIT_TASK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_EDIT_TASK){
+            if (resultCode == Activity.RESULT_OK){
+                activity?.finish()
+            }
+        }
     }
 
     companion object {

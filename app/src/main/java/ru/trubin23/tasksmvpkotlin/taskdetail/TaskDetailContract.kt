@@ -14,6 +14,8 @@ interface TaskDetailContract {
         fun showLoadingIndicator()
 
         fun showTask(task: Task)
+
+        fun showEditTask(taskId: String)
     }
 
     interface Presenter : BasePresenter {

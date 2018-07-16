@@ -42,5 +42,10 @@ class TaskDetailPresenter(
     }
 
     override fun editTask() {
+        if (mTaskId.isEmpty()){
+            mTaskDetailView.showMissingTask()
+            return
+        }
+        mTaskDetailView.showEditTask(mTaskId)
     }
 }
