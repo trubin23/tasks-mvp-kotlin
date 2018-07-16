@@ -30,6 +30,17 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
         mPresenter.start()
     }
 
+    override fun setTitle(title: String) {
+        mTitle.text = title
+    }
+
+    override fun setDescription(description: String) {
+        mDescription.text = description
+    }
+
+    override fun showEmptyTaskError() {
+    }
+
     companion object {
         fun newInstance() = AddEditTaskFragment()
     }
