@@ -5,7 +5,7 @@ import ru.trubin23.tasksmvpkotlin.data.Task
 internal object TaskMapper {
 
     fun networkTaskToTask(networkTask: NetworkTask): Task {
-        return Task(networkTask.id, networkTask.title, networkTask.description,
+        return Task(networkTask.title, networkTask.description, networkTask.id,
                 StatusOfTask.integerToBoolean(networkTask.completed))
     }
 
@@ -15,7 +15,7 @@ internal object TaskMapper {
     }
 
     fun networkTaskListToTaskList(networkTaskList: List<NetworkTask>): List<Task> {
-        val taskList:MutableList<Task> = ArrayList()
+        val taskList: MutableList<Task> = ArrayList()
 
         for (networkTask in networkTaskList) {
             val task = networkTaskToTask(networkTask)

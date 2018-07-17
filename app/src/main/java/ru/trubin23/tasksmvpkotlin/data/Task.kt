@@ -7,9 +7,9 @@ import java.util.*
 
 @Entity(tableName = "tasks")
 data class Task @JvmOverloads constructor(
-        @PrimaryKey @ColumnInfo(name = "entryId") var mId: String = UUID.randomUUID().toString(),
         @ColumnInfo(name = "title") var mTitle: String = "",
         @ColumnInfo(name = "description") var mDescription: String = "",
+        @PrimaryKey @ColumnInfo(name = "entryId") var mId: String = UUID.randomUUID().toString(),
         @ColumnInfo(name = "completed") var mIsCompleted: Boolean = false
 ) {
 

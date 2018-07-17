@@ -1,5 +1,6 @@
 package ru.trubin23.tasksmvpkotlin.addedittask
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -21,7 +22,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.addtask_frag, container, false)
-        with(root){
+        with(root) {
             mTitle = findViewById(R.id.add_task_title)
             mDescription = findViewById(R.id.add_task_description)
         }
@@ -30,7 +31,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        with(activity?.findViewById<FloatingActionButton>(R.id.fab_edit_task_done)){
+        with(activity?.findViewById<FloatingActionButton>(R.id.fab_edit_task_done)) {
             this?.setImageResource(R.drawable.ic_done)
             this?.setOnClickListener {
                 mPresenter.saveTask(mTitle.text.toString(), mDescription.text.toString())
@@ -53,6 +54,13 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
     override fun showEmptyTaskError() {
         view?.showSnackBar(getString(R.string.empty_task_message), Snackbar.LENGTH_LONG)
+    }
+
+    override fun showTaskList() {
+        with(activity) {
+            this?.setResult(Activity.RESULT_OK)
+            this?.finish()
+        }
     }
 
     companion object {

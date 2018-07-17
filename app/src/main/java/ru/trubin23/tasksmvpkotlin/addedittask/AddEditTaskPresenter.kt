@@ -38,8 +38,18 @@ class AddEditTaskPresenter(
     }
 
     private fun createTask(title: String, description: String) {
+        val newTask = Task(title, description)
+        if (newTask.isEmpty){
+            mAddEditTaskView.showEmptyTaskError()
+        } else {
+            mTasksRepository.saveTask(newTask)
+            mAddEditTaskView.showTaskList()
+        }
     }
 
     private fun updateTask(title: String, description: String) {
+        if (mTaskId != null){
+            mTasksRepository.saveTask(Task(title, description, mTaskId))
+        }
     }
 }

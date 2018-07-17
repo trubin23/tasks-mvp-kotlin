@@ -11,6 +11,8 @@ interface AddEditTaskContract {
         fun setDescription(description: String)
 
         fun showEmptyTaskError()
+
+        fun showTaskList()
     }
 
     interface Presenter : BasePresenter {
