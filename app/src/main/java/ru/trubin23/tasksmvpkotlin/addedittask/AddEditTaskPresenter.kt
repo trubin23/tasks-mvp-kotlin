@@ -28,4 +28,18 @@ class AddEditTaskPresenter(
             })
         }
     }
+
+    override fun saveTask(title: String, description: String) {
+        if (mTaskId == null){
+            createTask(title, description)
+        } else {
+            updateTask(title, description)
+        }
+    }
+
+    private fun createTask(title: String, description: String) {
+    }
+
+    private fun updateTask(title: String, description: String) {
+    }
 }

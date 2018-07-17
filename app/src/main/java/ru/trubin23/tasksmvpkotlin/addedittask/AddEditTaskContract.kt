@@ -14,5 +14,6 @@ interface AddEditTaskContract {
     }
 
     interface Presenter : BasePresenter {
+        fun saveTask(title: String, description: String)
     }
 }

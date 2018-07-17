@@ -1,12 +1,15 @@
 package ru.trubin23.tasksmvpkotlin.addedittask
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ru.trubin23.tasksmvpkotlin.R
+import ru.trubin23.tasksmvpkotlin.util.showSnackBar
 
 class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
@@ -25,6 +28,16 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
         return root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        with(activity?.findViewById<FloatingActionButton>(R.id.fab_edit_task_done)){
+            this?.setImageResource(R.drawable.ic_done)
+            this?.setOnClickListener {
+                mPresenter.saveTask(mTitle.text.toString(), mDescription.text.toString())
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         mPresenter.start()
@@ -39,6 +52,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     }
 
     override fun showEmptyTaskError() {
+        view?.showSnackBar(getString(R.string.empty_task_message), Snackbar.LENGTH_LONG)
     }
 
     companion object {
