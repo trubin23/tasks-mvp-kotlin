@@ -53,15 +53,21 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
         return deletePressed
     }
 
-    override fun showTask(task: Task) {
-        mComplete.isChecked = task.mIsCompleted
-        mTitle.text = task.mTitle
-        mDescription.text = task.mDescription
+    override fun showTitle(title: String) {
+        mTitle.text = title
+    }
+
+    override fun showDescription(description: String) {
+        mDescription.text = description
+    }
+
+    override fun showCompletionStatus(complete: Boolean) {
+        mComplete.isChecked = complete
     }
 
     override fun showLoadingIndicator() {
         mTitle.text = ""
-        mDescription.text = getString(R.string.no_data)
+        mDescription.text = getString(R.string.loading)
     }
 
     override fun showMissingTask() {
@@ -80,8 +86,8 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_EDIT_TASK){
-            if (resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_EDIT_TASK) {
+            if (resultCode == Activity.RESULT_OK) {
                 activity?.finish()
             }
         }

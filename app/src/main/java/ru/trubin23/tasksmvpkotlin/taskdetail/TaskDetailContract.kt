@@ -13,7 +13,11 @@ interface TaskDetailContract {
 
         fun showLoadingIndicator()
 
-        fun showTask(task: Task)
+        fun showTitle(title: String)
+
+        fun showDescription(description: String)
+
+        fun showCompletionStatus(complete: Boolean)
 
         fun showEditTask(taskId: String)
     }

@@ -23,7 +23,11 @@ class TaskDetailPresenter(
         mTaskDetailView.showLoadingIndicator()
         mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback{
             override fun onTaskLoaded(task: Task) {
-                mTaskDetailView.showTask(task)
+                with (mTaskDetailView){
+                    showTitle(task.mTitle)
+                    showDescription(task.mDescription)
+                    showCompletionStatus(task.mIsCompleted)
+                }
             }
 
             override fun onDataNotAvailable() {
