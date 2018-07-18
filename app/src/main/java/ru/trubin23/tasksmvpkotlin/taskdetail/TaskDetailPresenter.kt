@@ -52,4 +52,22 @@ class TaskDetailPresenter(
         }
         mTaskDetailView.showEditTask(mTaskId)
     }
+
+    override fun completeTask() {
+        if (mTaskId.isEmpty()){
+            mTaskDetailView.showMissingTask()
+            return
+        }
+        mTasksRepository.completedTask(mTaskId, true)
+        //mTaskDetailView.showTaskMarkedComplete()
+    }
+
+    override fun activateTask() {
+        if (mTaskId.isEmpty()){
+            mTaskDetailView.showMissingTask()
+            return
+        }
+        mTasksRepository.completedTask(mTaskId, true)
+        //mTaskDetailView.showTaskMarkedActive()
+    }
 }

@@ -62,7 +62,16 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     }
 
     override fun showCompletionStatus(complete: Boolean) {
-        mComplete.isChecked = complete
+        with(mComplete){
+            isChecked = complete
+            setOnCheckedChangeListener{ _, isCheckedNow  ->
+                if (isCheckedNow){
+                    mPresenter.completeTask()
+                } else{
+                    mPresenter.activateTask()
+                }
+            }
+        }
     }
 
     override fun showLoadingIndicator() {

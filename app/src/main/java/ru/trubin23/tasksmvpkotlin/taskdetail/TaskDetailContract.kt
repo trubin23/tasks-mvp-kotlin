@@ -26,5 +26,9 @@ interface TaskDetailContract {
         fun deleteTask()
 
         fun editTask()
+
+        fun completeTask()
+
+        fun activateTask()
     }
 }
