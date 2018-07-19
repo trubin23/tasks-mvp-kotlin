@@ -20,6 +20,10 @@ interface TaskDetailContract {
         fun showCompletionStatus(complete: Boolean)
 
         fun showEditTask(taskId: String)
+
+        fun showTaskMarkedComplete()
+
+        fun showTaskMarkedActive()
     }
 
     interface Presenter : BasePresenter {

@@ -59,7 +59,7 @@ class TaskDetailPresenter(
             return
         }
         mTasksRepository.completedTask(mTaskId, true)
-        //mTaskDetailView.showTaskMarkedComplete()
+        mTaskDetailView.showTaskMarkedComplete()
     }
 
     override fun activateTask() {
@@ -67,7 +67,7 @@ class TaskDetailPresenter(
             mTaskDetailView.showMissingTask()
             return
         }
-        mTasksRepository.completedTask(mTaskId, true)
-        //mTaskDetailView.showTaskMarkedActive()
+        mTasksRepository.completedTask(mTaskId, false)
+        mTaskDetailView.showTaskMarkedActive()
     }
 }

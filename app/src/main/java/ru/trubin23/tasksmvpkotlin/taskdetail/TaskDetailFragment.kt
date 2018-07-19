@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.CheckBox
@@ -12,6 +13,7 @@ import ru.trubin23.tasksmvpkotlin.R
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity.Companion.REQUEST_EDIT_TASK
 import ru.trubin23.tasksmvpkotlin.data.Task
+import ru.trubin23.tasksmvpkotlin.util.showSnackBar
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
@@ -100,6 +102,14 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
                 activity?.finish()
             }
         }
+    }
+
+    override fun showTaskMarkedComplete() {
+        view?.showSnackBar(getString(R.string.task_marked_complete), Snackbar.LENGTH_LONG)
+    }
+
+    override fun showTaskMarkedActive() {
+        view?.showSnackBar(getString(R.string.task_marked_active), Snackbar.LENGTH_LONG)
     }
 
     companion object {
