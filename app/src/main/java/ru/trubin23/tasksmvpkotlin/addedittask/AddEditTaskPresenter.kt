@@ -49,7 +49,8 @@ class AddEditTaskPresenter(
 
     private fun updateTask(title: String, description: String) {
         if (mTaskId != null){
-            mTasksRepository.saveTask(Task(title, description, mTaskId))
+            mTasksRepository.updateTask(Task(title, description, mTaskId))
+            mAddEditTaskView.showTaskList()
         }
     }
 }

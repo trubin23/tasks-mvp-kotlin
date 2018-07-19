@@ -26,17 +26,13 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
             mTitle = findViewById(R.id.add_task_title)
             mDescription = findViewById(R.id.add_task_description)
         }
-        return root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         with(activity?.findViewById<FloatingActionButton>(R.id.fab_edit_task_done)) {
             this?.setImageResource(R.drawable.ic_done)
             this?.setOnClickListener {
                 mPresenter.saveTask(mTitle.text.toString(), mDescription.text.toString())
             }
         }
+        return root
     }
 
     override fun onResume() {
