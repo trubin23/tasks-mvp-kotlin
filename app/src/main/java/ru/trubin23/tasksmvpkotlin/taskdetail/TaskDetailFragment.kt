@@ -12,7 +12,6 @@ import android.widget.TextView
 import ru.trubin23.tasksmvpkotlin.R
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity.Companion.REQUEST_EDIT_TASK
-import ru.trubin23.tasksmvpkotlin.data.Task
 import ru.trubin23.tasksmvpkotlin.util.showSnackBar
 
 class TaskDetailFragment : Fragment(), TaskDetailContract.View {
@@ -26,6 +25,9 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.taskdetail_frag, container, false)
+
+        setHasOptionsMenu(true)
+
         with(root) {
             mComplete = findViewById(R.id.task_detail_complete)
             mTitle = findViewById(R.id.task_detail_title)
