@@ -17,6 +17,11 @@ class TasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_act)
 
+//        supportActionBar?.run{
+//            setHomeAsUpIndicator(R.drawable.ic_menu)
+//            setDisplayHomeAsUpEnabled(true)
+//        }
+
         mDrawerLayout = findViewById(R.id.drawer_layout)
 
         val tasksFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
