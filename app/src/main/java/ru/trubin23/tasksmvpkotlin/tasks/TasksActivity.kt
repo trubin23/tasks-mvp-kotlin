@@ -1,6 +1,7 @@
 package ru.trubin23.tasksmvpkotlin.tasks
 
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
@@ -17,12 +18,14 @@ class TasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_act)
 
-//        supportActionBar?.run{
-//            setHomeAsUpIndicator(R.drawable.ic_menu)
-//            setDisplayHomeAsUpEnabled(true)
-//        }
+        supportActionBar?.run{
+            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         mDrawerLayout = findViewById(R.id.drawer_layout)
+
+        setupDrawerContent(findViewById(R.id.nav_view))
 
         val tasksFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
                 as TasksFragment? ?: TasksFragment.newInstance().also {
@@ -30,6 +33,14 @@ class TasksActivity : AppCompatActivity() {
         }
 
         TasksPresenter(Injection.provideTasksRepository(applicationContext), tasksFragment)
+    }
+
+    private fun setupDrawerContent(navigationView: NavigationView) {
+        navigationView.setNavigationItemSelectedListener {menuItem ->
+            menuItem.isChecked = true
+            mDrawerLayout.closeDrawers()
+            true
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
