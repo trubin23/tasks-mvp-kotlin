@@ -1,5 +1,6 @@
 package ru.trubin23.tasksmvpkotlin.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -7,6 +8,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import ru.trubin23.tasksmvpkotlin.R
+import ru.trubin23.tasksmvpkotlin.statistics.StatisticsActivity
 import ru.trubin23.tasksmvpkotlin.util.Injection
 import ru.trubin23.tasksmvpkotlin.util.addFragmentToActivity
 
@@ -18,7 +20,7 @@ class TasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_act)
 
-        supportActionBar?.run{
+        supportActionBar?.run {
             setHomeAsUpIndicator(R.drawable.ic_menu)
             setDisplayHomeAsUpEnabled(true)
         }
@@ -36,7 +38,11 @@ class TasksActivity : AppCompatActivity() {
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {
-        navigationView.setNavigationItemSelectedListener {menuItem ->
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.statistics_nav_menu_item) {
+                val intent = Intent(this@TasksActivity, StatisticsActivity::class.java)
+                startActivity(intent)
+            }
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
             true
@@ -44,7 +50,7 @@ class TasksActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START)
             return true
         }
