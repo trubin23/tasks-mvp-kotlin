@@ -2,6 +2,7 @@ package ru.trubin23.tasksmvpkotlin.statistics
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.NavUtils
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import ru.trubin23.tasksmvpkotlin.R
@@ -36,6 +37,9 @@ class StatisticsActivity : AppCompatActivity() {
 
     private fun setupDrawerContent(navigationView: NavigationView) {
         navigationView.setNavigationItemSelectedListener { menuItem ->
+            if (menuItem.itemId == R.id.list_nav_menu_item){
+                NavUtils.navigateUpFromSameTask(this@StatisticsActivity)
+            }
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
             true
