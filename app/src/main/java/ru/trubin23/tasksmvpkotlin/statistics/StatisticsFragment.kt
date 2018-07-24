@@ -17,15 +17,12 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
     }
 
     override fun setProgressIndicator(active: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showStatistics(numberOfActiveTasks: Int, numberOfCompletedTasks: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showLoadingStatisticsError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {
