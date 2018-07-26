@@ -32,6 +32,8 @@ interface TasksContract {
 
         fun showNoTasks()
 
+        fun showSuccessfullySavedMessage()
+
         fun setLoadingIndicator(active: Boolean)
 
         fun showCompletedTasksCleared()
@@ -39,7 +41,7 @@ interface TasksContract {
 
     interface Presenter : BasePresenter {
 
-        var mCurrentFiltering : TasksFilterType
+        var mCurrentFiltering: TasksFilterType
 
         fun addNewTask()
 
@@ -52,5 +54,7 @@ interface TasksContract {
         fun clearCompletedTasks()
 
         fun loadTasks(forceUpdate: Boolean)
+
+        fun result(requestCode: Int, resultCode: Int)
     }
 }

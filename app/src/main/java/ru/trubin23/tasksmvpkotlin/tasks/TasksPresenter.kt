@@ -1,5 +1,8 @@
 package ru.trubin23.tasksmvpkotlin.tasks
 
+import android.app.Activity
+import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
+import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskFragment
 import ru.trubin23.tasksmvpkotlin.data.Task
 import ru.trubin23.tasksmvpkotlin.data.source.TasksDataSource
 import ru.trubin23.tasksmvpkotlin.data.source.TasksRepository
@@ -29,7 +32,7 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
         if (showLoadingUI) {
             mTasksView.setLoadingIndicator(true)
         }
-        if (forceUpdate){
+        if (forceUpdate) {
             mTasksRepository.refreshTasks()
         }
 
@@ -87,6 +90,13 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
             TasksFilterType.ACTIVE_TASKS -> mTasksView.showActiveFilterLabel()
             TasksFilterType.COMPLETED_TASKS -> mTasksView.showCompletedFilterLabel()
             else -> mTasksView.showAllFilterLabel()
+        }
+    }
+
+    override fun result(requestCode: Int, resultCode: Int) {
+        if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode &&
+                Activity.RESULT_OK == resultCode) {
+            mTasksView.showSuccessfullySavedMessage()
         }
     }
 

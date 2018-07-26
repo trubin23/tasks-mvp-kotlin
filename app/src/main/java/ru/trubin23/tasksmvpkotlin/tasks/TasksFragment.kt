@@ -83,6 +83,10 @@ class TasksFragment : Fragment(), TasksContract.View {
         mPresenter.start()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mPresenter.result(requestCode, resultCode)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
         inflater.inflate(R.menu.tasks_frag_menu, menu)
     }
@@ -181,7 +185,7 @@ class TasksFragment : Fragment(), TasksContract.View {
                 R.drawable.ic_check_circle)
     }
 
-    fun showSuccessfullySavedMessage() {
+    override fun showSuccessfullySavedMessage() {
         showMessage(getString(R.string.task_saved_successfully))
     }
 
