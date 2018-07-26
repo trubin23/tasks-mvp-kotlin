@@ -8,6 +8,8 @@ interface TasksContract {
 
     interface View : BaseView<Presenter> {
 
+        var isActive: Boolean
+
         fun showAddTask()
 
         fun showTaskDetail(taskId: String)

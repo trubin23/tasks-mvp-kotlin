@@ -2,7 +2,6 @@ package ru.trubin23.tasksmvpkotlin.tasks
 
 import android.app.Activity
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
-import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskFragment
 import ru.trubin23.tasksmvpkotlin.data.Task
 import ru.trubin23.tasksmvpkotlin.data.source.TasksDataSource
 import ru.trubin23.tasksmvpkotlin.data.source.TasksRepository
@@ -52,14 +51,21 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
                     }
                 }
 
+                if (mTasksView.isActive) {
+                    return
+                }
+
                 if (showLoadingUI) {
                     mTasksView.setLoadingIndicator(false)
                 }
-
                 showTasks(tasksToShow)
             }
 
             override fun onDataNotAvailable() {
+                if (mTasksView.isActive) {
+                    return
+                }
+
                 if (showLoadingUI) {
                     mTasksView.setLoadingIndicator(false)
                 }

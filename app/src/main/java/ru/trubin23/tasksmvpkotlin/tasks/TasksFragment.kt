@@ -23,6 +23,9 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     override lateinit var mPresenter: TasksContract.Presenter
 
+    override var isActive: Boolean = false
+        get() = isAdded
+
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var mNoTasksView: View
