@@ -15,8 +15,8 @@ import ru.trubin23.tasksmvpkotlin.R
 import ru.trubin23.tasksmvpkotlin.addedittask.AddEditTaskActivity
 import ru.trubin23.tasksmvpkotlin.data.Task
 import ru.trubin23.tasksmvpkotlin.taskdetail.TaskDetailActivity
-import ru.trubin23.tasksmvpkotlin.tasks.task_list.TaskItemListener
-import ru.trubin23.tasksmvpkotlin.tasks.task_list.TasksAdapter
+import ru.trubin23.tasksmvpkotlin.tasks.tasklist.TaskItemListener
+import ru.trubin23.tasksmvpkotlin.tasks.tasklist.TasksAdapter
 import ru.trubin23.tasksmvpkotlin.util.showSnackBar
 
 class TasksFragment : Fragment(), TasksContract.View {

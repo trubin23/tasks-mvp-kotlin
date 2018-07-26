@@ -2,6 +2,7 @@ package ru.trubin23.tasksmvpkotlin.tasks
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -15,6 +16,8 @@ import ru.trubin23.tasksmvpkotlin.util.addFragmentToActivity
 class TasksActivity : AppCompatActivity() {
 
     private lateinit var mDrawerLayout: DrawerLayout
+
+    private lateinit var mTasksPresenter: TasksPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,19 @@ class TasksActivity : AppCompatActivity() {
             addFragmentToActivity(it, R.id.content_frame)
         }
 
-        TasksPresenter(Injection.provideTasksRepository(applicationContext), tasksFragment)
+        mTasksPresenter = TasksPresenter(Injection.provideTasksRepository(applicationContext),
+                tasksFragment).apply {
+            if (savedInstanceState != null) {
+                mCurrentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
+                        as TasksFilterType
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState.apply {
+            putSerializable(CURRENT_FILTERING_KEY, mTasksPresenter.mCurrentFiltering)
+        })
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {
@@ -55,5 +70,9 @@ class TasksActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY"
     }
 }

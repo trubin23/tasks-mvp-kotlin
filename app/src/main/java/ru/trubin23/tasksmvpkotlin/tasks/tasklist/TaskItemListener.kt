@@ -1,4 +1,4 @@
-package ru.trubin23.tasksmvpkotlin.tasks.task_list
+package ru.trubin23.tasksmvpkotlin.tasks.tasklist
 
 import ru.trubin23.tasksmvpkotlin.data.Task
 
