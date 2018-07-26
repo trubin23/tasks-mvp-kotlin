@@ -26,12 +26,13 @@ class TasksFragment : Fragment(), TasksContract.View {
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var mNoTasksView: View
-
     private lateinit var mNoTasksIcon: ImageView
     private lateinit var mNoTasksLabel: TextView
+
     private lateinit var mShowTasksView: View
 
     private lateinit var mFilteringLabelView: TextView
+
     private val mItemListener: TaskItemListener = object : TaskItemListener {
         override fun onTaskClick(clickedTask: Task) {
             mPresenter.openTaskDetail(clickedTask)
@@ -57,7 +58,7 @@ class TasksFragment : Fragment(), TasksContract.View {
             mSwipeRefreshLayout.setOnRefreshListener { mPresenter.loadTasks(false) }
 
             mShowTasksView = findViewById(R.id.show_tasks)
-            val listView = findViewById<ListView>(R.id.tasks_list).apply {
+            findViewById<ListView>(R.id.tasks_list).apply {
                 adapter = mListAdapter
             }
             mFilteringLabelView = findViewById(R.id.filtering_label)
@@ -67,13 +68,19 @@ class TasksFragment : Fragment(), TasksContract.View {
             mNoTasksLabel = findViewById(R.id.no_tasks_label)
         }
 
-        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.setOnClickListener {
-            mPresenter.addNewTask()
+        activity?.findViewById<FloatingActionButton>(R.id.fab_add_task)?.apply {
+            setImageResource(R.drawable.ic_add)
+            setOnClickListener { mPresenter.addNewTask() }
         }
 
         setHasOptionsMenu(true)
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPresenter.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -105,11 +112,6 @@ class TasksFragment : Fragment(), TasksContract.View {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        mPresenter.start()
-    }
-
     override fun showTasks(tasks: List<Task>) {
         mListAdapter.mTasks = tasks
         mShowTasksView.visibility = View.VISIBLE
@@ -129,7 +131,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun setLoadingIndicator(active: Boolean) {
-        with(mSwipeRefreshLayout) { post{isRefreshing = active} }
+        with(mSwipeRefreshLayout) { post { isRefreshing = active } }
     }
 
     override fun showTaskMarkedComplete() {
@@ -165,18 +167,22 @@ class TasksFragment : Fragment(), TasksContract.View {
     }
 
     override fun showNoActiveTasks() {
-        showNoTasksViews(resources.getString(R.string.no_tasks_active),
+        showNoTasksViews(getString(R.string.no_tasks_active),
                 R.drawable.ic_verified)
     }
 
     override fun showNoCompletedTasks() {
-        showNoTasksViews(resources.getString(R.string.no_tasks_completed),
+        showNoTasksViews(getString(R.string.no_tasks_completed),
                 R.drawable.ic_check_box)
     }
 
     override fun showNoTasks() {
-        showNoTasksViews(resources.getString(R.string.no_tasks_all),
+        showNoTasksViews(getString(R.string.no_tasks_all),
                 R.drawable.ic_check_circle)
+    }
+
+    fun showSuccessfullySavedMessage() {
+        showMessage(getString(R.string.task_saved_successfully))
     }
 
     private fun showNoTasksViews(descriptionText: String?, iconRes: Int) {
