@@ -12,6 +12,11 @@ class TaskDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.taskdetail_act)
 
+        actionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+
         val taskId = intent.getStringExtra(EXTRA_TASK_ID)
 
         val taskDetailFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
@@ -21,6 +26,11 @@ class TaskDetailActivity : AppCompatActivity() {
 
         TaskDetailPresenter(taskId, Injection.provideTasksRepository(applicationContext),
                 taskDetailFragment)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {
