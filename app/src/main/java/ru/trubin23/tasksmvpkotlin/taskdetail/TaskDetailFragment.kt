@@ -22,6 +22,9 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
     override lateinit var mPresenter: TaskDetailContract.Presenter
 
+    override var isActive: Boolean = false
+        get() = isAdded
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.taskdetail_frag, container, false)

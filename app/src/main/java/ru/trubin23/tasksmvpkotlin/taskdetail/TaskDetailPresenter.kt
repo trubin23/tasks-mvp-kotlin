@@ -23,6 +23,9 @@ class TaskDetailPresenter(
         mTaskDetailView.showLoadingIndicator()
         mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback{
             override fun onTaskLoaded(task: Task) {
+                if (!mTaskDetailView.isActive){
+                    return
+                }
                 with (mTaskDetailView){
                     showTitle(task.mTitle)
                     showDescription(task.mDescription)
@@ -31,6 +34,9 @@ class TaskDetailPresenter(
             }
 
             override fun onDataNotAvailable() {
+                if (!mTaskDetailView.isActive){
+                    return
+                }
                 mTaskDetailView.showMissingTask()
             }
         })

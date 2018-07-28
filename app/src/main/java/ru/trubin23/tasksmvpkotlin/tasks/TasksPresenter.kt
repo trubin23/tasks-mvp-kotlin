@@ -51,7 +51,7 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
                     }
                 }
 
-                if (mTasksView.isActive) {
+                if (!mTasksView.isActive) {
                     return
                 }
 
@@ -62,7 +62,7 @@ class TasksPresenter(private val mTasksRepository: TasksRepository,
             }
 
             override fun onDataNotAvailable() {
-                if (mTasksView.isActive) {
+                if (!mTasksView.isActive) {
                     return
                 }
 

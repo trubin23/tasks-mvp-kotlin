@@ -6,6 +6,9 @@ import ru.trubin23.tasksmvpkotlin.BaseView
 interface TaskDetailContract {
 
     interface View : BaseView<Presenter> {
+
+        val isActive: Boolean
+
         fun showMissingTask()
 
         fun showTaskDelete()
