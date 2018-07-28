@@ -15,35 +15,33 @@ class TaskDetailPresenter(
     }
 
     override fun start() {
-        if (mTaskId.isEmpty()){
+        if (mTaskId.isEmpty()) {
             mTaskDetailView.showMissingTask()
             return
         }
 
         mTaskDetailView.showLoadingIndicator()
-        mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback{
+        mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback {
             override fun onTaskLoaded(task: Task) {
-                if (!mTaskDetailView.isActive){
+                if (!mTaskDetailView.isActive) {
                     return
                 }
-                with (mTaskDetailView){
-                    showTitle(task.mTitle)
-                    showDescription(task.mDescription)
-                    showCompletionStatus(task.mIsCompleted)
-                }
+                showTask(task)
             }
 
             override fun onDataNotAvailable() {
-                if (!mTaskDetailView.isActive){
-                    return
+                with(mTaskDetailView) {
+                    if (!isActive) {
+                        return@onDataNotAvailable
+                    }
+                    showMissingTask()
                 }
-                mTaskDetailView.showMissingTask()
             }
         })
     }
 
     override fun deleteTask() {
-        if (mTaskId.isEmpty()){
+        if (mTaskId.isEmpty()) {
             mTaskDetailView.showMissingTask()
             return
         }
@@ -52,7 +50,7 @@ class TaskDetailPresenter(
     }
 
     override fun editTask() {
-        if (mTaskId.isEmpty()){
+        if (mTaskId.isEmpty()) {
             mTaskDetailView.showMissingTask()
             return
         }
@@ -60,7 +58,7 @@ class TaskDetailPresenter(
     }
 
     override fun completeTask() {
-        if (mTaskId.isEmpty()){
+        if (mTaskId.isEmpty()) {
             mTaskDetailView.showMissingTask()
             return
         }
@@ -69,11 +67,23 @@ class TaskDetailPresenter(
     }
 
     override fun activateTask() {
-        if (mTaskId.isEmpty()){
+        if (mTaskId.isEmpty()) {
             mTaskDetailView.showMissingTask()
             return
         }
         mTasksRepository.completedTask(mTaskId, false)
         mTaskDetailView.showTaskMarkedActive()
+    }
+
+    private fun showTask(task: Task){
+        with (mTaskDetailView){
+            if (mTaskId.isNullOrEmpty()){
+
+            } else {
+                showTitle(task.mTitle)
+                showDescription(task.mDescription)
+                showCompletionStatus(task.mIsCompleted)
+            }
+        }
     }
 }
