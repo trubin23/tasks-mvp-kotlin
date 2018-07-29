@@ -16,6 +16,9 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
     override lateinit var mPresenter: AddEditTaskContract.Presenter
 
+    override var isActive: Boolean = false
+        get() = isAdded
+
     private lateinit var mTitle: TextView
     private lateinit var mDescription: TextView
 

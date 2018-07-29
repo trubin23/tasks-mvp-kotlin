@@ -75,11 +75,9 @@ class TaskDetailPresenter(
         mTaskDetailView.showTaskMarkedActive()
     }
 
-    private fun showTask(task: Task){
-        with (mTaskDetailView){
-            if (mTaskId.isNullOrEmpty()){
-
-            } else {
+    private fun showTask(task: Task) {
+        if (mTaskId == task.mId && mTaskId.isNotEmpty()) {
+            with(mTaskDetailView) {
                 showTitle(task.mTitle)
                 showDescription(task.mDescription)
                 showCompletionStatus(task.mIsCompleted)

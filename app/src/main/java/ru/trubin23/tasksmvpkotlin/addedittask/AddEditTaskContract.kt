@@ -6,6 +6,9 @@ import ru.trubin23.tasksmvpkotlin.BaseView
 interface AddEditTaskContract {
 
     interface View : BaseView<Presenter> {
+
+        val isActive: Boolean
+
         fun setTitle(title: String)
 
         fun setDescription(description: String)
