@@ -9,23 +9,37 @@ import ru.trubin23.tasksmvpkotlin.util.addFragmentToActivity
 
 class AddEditTaskActivity : AppCompatActivity() {
 
+    private lateinit var mAddEditTaskPresenter: AddEditTaskPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.addtask_act)
 
-        val taskId = intent.getStringExtra(TaskDetailActivity.EXTRA_TASK_ID)
+        val taskId = intent.getStringExtra(EXTRA_TASK_ID)
 
         val addEditTaskFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
-                as AddEditTaskFragment ? ?: AddEditTaskFragment.newInstance().also {
+                as AddEditTaskFragment? ?: AddEditTaskFragment.newInstance().also {
             addFragmentToActivity(it, R.id.content_frame)
         }
 
-        AddEditTaskPresenter(taskId, Injection.provideTasksRepository(applicationContext),
-                addEditTaskFragment)
+        val shouldLoadDataFromRepo = savedInstanceState?.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY)
+                ?: true
+
+        mAddEditTaskPresenter = AddEditTaskPresenter(taskId,
+                Injection.provideTasksRepository(applicationContext),
+                addEditTaskFragment, shouldLoadDataFromRepo)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState?.apply {
+            putBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY, mAddEditTaskPresenter.isDataMissing)
+        })
     }
 
     companion object {
-        const val EXTRA_TASK_ID = "TASK_ID"
+        const val EXTRA_TASK_ID = "ADD_EDIT_TASK_ID"
+        const val SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_LOAD_DATA_FROM_REPO_KEY"
+
         const val REQUEST_ADD_TASK = 1
         const val REQUEST_EDIT_TASK = 2
     }

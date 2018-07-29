@@ -7,7 +7,8 @@ import ru.trubin23.tasksmvpkotlin.data.source.TasksRepository
 class AddEditTaskPresenter(
         private val mTaskId: String?,
         private val mTasksRepository: TasksRepository,
-        private val mAddEditTaskView: AddEditTaskContract.View)
+        private val mAddEditTaskView: AddEditTaskContract.View,
+        override var isDataMissing: Boolean)
     : AddEditTaskContract.Presenter {
 
     init {
@@ -30,7 +31,7 @@ class AddEditTaskPresenter(
     }
 
     override fun saveTask(title: String, description: String) {
-        if (mTaskId == null){
+        if (mTaskId == null) {
             createTask(title, description)
         } else {
             updateTask(title, description)
@@ -39,7 +40,7 @@ class AddEditTaskPresenter(
 
     private fun createTask(title: String, description: String) {
         val newTask = Task(title, description)
-        if (newTask.isEmpty){
+        if (newTask.isEmpty) {
             mAddEditTaskView.showEmptyTaskError()
         } else {
             mTasksRepository.saveTask(newTask)
@@ -48,7 +49,7 @@ class AddEditTaskPresenter(
     }
 
     private fun updateTask(title: String, description: String) {
-        if (mTaskId != null){
+        if (mTaskId != null) {
             mTasksRepository.updateTask(Task(title, description, mTaskId))
             mAddEditTaskView.showTaskList()
         }

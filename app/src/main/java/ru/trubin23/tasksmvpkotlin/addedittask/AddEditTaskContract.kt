@@ -19,6 +19,8 @@ interface AddEditTaskContract {
     }
 
     interface Presenter : BasePresenter {
+        var isDataMissing: Boolean
+
         fun saveTask(title: String, description: String)
     }
 }
