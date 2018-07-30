@@ -42,4 +42,7 @@
     <string name="statistics_no_tasks">You have no tasks.</string>
     <string name="statistics_active_tasks">Active tasks:</string>
     <string name="statistics_completed_tasks">Completed tasks:</string>
+
+    <string name="add_task">Add task</string>
+    <string name="edit_task">Edit task</string>
 </resources>

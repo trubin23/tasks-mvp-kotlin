@@ -16,6 +16,12 @@ class AddEditTaskActivity : AppCompatActivity() {
 
         val taskId = intent.getStringExtra(EXTRA_TASK_ID)
 
+        actionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            setTitle(if (taskId == null) R.string.add_task else R.string.edit_task)
+        }
+
         val addEditTaskFragment = supportFragmentManager.findFragmentById(R.id.content_frame)
                 as AddEditTaskFragment? ?: AddEditTaskFragment.newInstance().also {
             addFragmentToActivity(it, R.id.content_frame)
@@ -27,6 +33,11 @@ class AddEditTaskActivity : AppCompatActivity() {
         mAddEditTaskPresenter = AddEditTaskPresenter(taskId,
                 Injection.provideTasksRepository(applicationContext),
                 addEditTaskFragment, shouldLoadDataFromRepo)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
