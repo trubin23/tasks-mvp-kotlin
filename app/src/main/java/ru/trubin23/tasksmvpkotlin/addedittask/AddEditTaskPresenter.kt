@@ -16,15 +16,25 @@ class AddEditTaskPresenter(
     }
 
     override fun start() {
-        mTaskId?.apply {
-            mTasksRepository.getTask(this, object : TasksDataSource.GetTaskCallback {
+        if (mTaskId != null && isDataMissing) {
+            mTasksRepository.getTask(mTaskId, object : TasksDataSource.GetTaskCallback {
                 override fun onTaskLoaded(task: Task) {
-                    mAddEditTaskView.setTitle(task.mTitle)
-                    mAddEditTaskView.setDescription(task.mDescription)
+                    with(mAddEditTaskView) {
+                        if (!isActive) {
+                            return@onTaskLoaded
+                        }
+                        setTitle(task.mTitle)
+                        setDescription(task.mDescription)
+                    }
                 }
 
                 override fun onDataNotAvailable() {
-                    mAddEditTaskView.showEmptyTaskError()
+                    with(mAddEditTaskView) {
+                        if (!isActive) {
+                            return@onDataNotAvailable
+                        }
+                        showEmptyTaskError()
+                    }
                 }
             })
         }

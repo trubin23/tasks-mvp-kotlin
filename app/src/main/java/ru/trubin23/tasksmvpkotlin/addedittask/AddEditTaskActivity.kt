@@ -3,7 +3,6 @@ package ru.trubin23.tasksmvpkotlin.addedittask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import ru.trubin23.tasksmvpkotlin.R
-import ru.trubin23.tasksmvpkotlin.taskdetail.TaskDetailActivity
 import ru.trubin23.tasksmvpkotlin.util.Injection
 import ru.trubin23.tasksmvpkotlin.util.addFragmentToActivity
 
