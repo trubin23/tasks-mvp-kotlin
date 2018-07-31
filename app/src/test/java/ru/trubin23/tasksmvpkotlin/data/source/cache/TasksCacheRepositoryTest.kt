@@ -17,9 +17,9 @@ class TasksCacheRepositoryTest {
     fun init() {
         removeTasks()
 
-        for (i in 1..ITEMS_COUNT) {
-            val task = Task(i.toString(), "=" + i.toString() + "=")
-            if (i % PROPORTION_COMPLETED_ITEMS == 0) {
+        for (index in 1..ITEMS_COUNT) {
+            val task = Task(index.toString(), "=" + index.toString() + "=")
+            if (index % PROPORTION_COMPLETED_ITEMS == 0) {
                 task.mIsCompleted = true
             }
             tasksCacheRepository.addTask(task)

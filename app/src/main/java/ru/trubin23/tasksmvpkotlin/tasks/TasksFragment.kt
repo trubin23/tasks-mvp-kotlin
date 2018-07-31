@@ -37,16 +37,16 @@ class TasksFragment : Fragment(), TasksContract.View {
     private lateinit var mFilteringLabelView: TextView
 
     private val mItemListener: TaskItemListener = object : TaskItemListener {
-        override fun onTaskClick(clickedTask: Task) {
-            mPresenter.openTaskDetail(clickedTask)
+        override fun onTaskClick(clickedTaskId: String) {
+            mPresenter.openTaskDetail(clickedTaskId)
         }
 
-        override fun onCompleteTask(completeTask: Task) {
-            mPresenter.completeTask(completeTask)
+        override fun onCompleteTask(completeTaskId: String) {
+            mPresenter.completeTask(completeTaskId)
         }
 
-        override fun onActivateTask(activateTask: Task) {
-            mPresenter.activateTask(activateTask)
+        override fun onActivateTask(activateTaskId: String) {
+            mPresenter.activateTask(activateTaskId)
         }
     }
 

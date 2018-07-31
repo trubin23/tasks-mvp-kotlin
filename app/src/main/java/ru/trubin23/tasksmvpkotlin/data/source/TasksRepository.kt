@@ -6,9 +6,9 @@ import ru.trubin23.tasksmvpkotlin.data.source.local.TasksLocalDataSource
 
 
 class TasksRepository private constructor(
-        val mTasksRemoteDataSource: TasksDataSource,
-        val mTasksLocalDataSource: TasksLocalDataSource,
-        val mTasksCacheDataSource: TasksCacheDataSource
+        private val mTasksRemoteDataSource: TasksDataSource,
+        private val mTasksLocalDataSource: TasksLocalDataSource,
+        private val mTasksCacheDataSource: TasksCacheDataSource
 ) : TasksMainDataSource {
 
     private var mForceRefresh: Boolean = false

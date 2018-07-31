@@ -10,7 +10,7 @@ class TasksRemoteRepository private constructor(
 ) : TasksDataSource {
 
     override fun getTasks(callback: TasksDataSource.LoadTasksCallback) {
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.getTasks(
                     object : ProcessingResponse<List<NetworkTask>>() {
                         override fun responseBody(body: List<NetworkTask>) {
@@ -22,11 +22,11 @@ class TasksRemoteRepository private constructor(
                             mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
                         }
                     })
-        })
+        }
     }
 
     override fun getTask(taskId: String, callback: TasksDataSource.GetTaskCallback) {
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.getTask(taskId,
                     object : ProcessingResponse<NetworkTask>() {
                         override fun responseBody(body: NetworkTask) {
@@ -38,43 +38,43 @@ class TasksRemoteRepository private constructor(
                             mAppExecutors.mainThread.execute { callback.onDataNotAvailable() }
                         }
                     })
-        })
+        }
     }
 
     override fun saveTask(task: Task) {
         val networkTask = TaskMapper.taskToNetworkTask(task)
 
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.addTask(networkTask, ProcessingResponse())
-        })
+        }
     }
 
     override fun updateTask(task: Task) {
         val networkTask = TaskMapper.taskToNetworkTask(task)
 
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.updateTask(networkTask, ProcessingResponse())
-        })
+        }
     }
 
     override fun deleteTask(taskId: String) {
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.deleteTask(taskId, ProcessingResponse())
-        })
+        }
     }
 
     override fun completedTask(taskId: String, completed: Boolean) {
         val statusOfTask = StatusOfTask(completed)
 
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.completeTask(taskId, statusOfTask, ProcessingResponse())
-        })
+        }
     }
 
     override fun clearCompletedTasks() {
-        mAppExecutors.networkIO.execute({
+        mAppExecutors.networkIO.execute {
             RetrofitClient.deleteCompletedTasks(ProcessingResponse())
-        })
+        }
     }
 
     companion object {

@@ -40,14 +40,14 @@ class TasksAdapter(private val itemListener: TaskItemListener)
 
             setOnClickListener {
                 if (!task.mIsCompleted) {
-                    itemListener.onCompleteTask(task)
+                    itemListener.onCompleteTask(task.mId)
                 } else {
-                    itemListener.onActivateTask(task)
+                    itemListener.onActivateTask(task.mId)
                 }
             }
         }
 
-        rowView.setOnClickListener { itemListener.onTaskClick(task) }
+        rowView.setOnClickListener { itemListener.onTaskClick(task.mId) }
 
         return rowView
     }

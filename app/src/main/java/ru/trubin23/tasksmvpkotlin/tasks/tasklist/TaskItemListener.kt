@@ -1,12 +1,10 @@
 package ru.trubin23.tasksmvpkotlin.tasks.tasklist
 
-import ru.trubin23.tasksmvpkotlin.data.Task
-
 interface TaskItemListener {
 
-    fun onTaskClick(clickedTask: Task)
+    fun onTaskClick(clickedTaskId: String)
 
-    fun onCompleteTask(completeTask: Task)
+    fun onCompleteTask(completeTaskId: String)
 
-    fun onActivateTask(activateTask: Task)
+    fun onActivateTask(activateTaskId: String)
 }

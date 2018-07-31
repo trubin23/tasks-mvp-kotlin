@@ -47,11 +47,11 @@ interface TasksContract {
 
         fun addNewTask()
 
-        fun openTaskDetail(requestedTask: Task)
+        fun openTaskDetail(requestedTaskId: String)
 
-        fun completeTask(completeTask: Task)
+        fun completeTask(completeTaskId: String)
 
-        fun activateTask(activateTask: Task)
+        fun activateTask(activateTaskId: String)
 
         fun clearCompletedTasks()
 
