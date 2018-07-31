@@ -14,6 +14,9 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
 
     override lateinit var mPresenter: StatisticsContract.Presenter
 
+    override var isActive: Boolean = false
+        get() = isAdded
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.statistics_frag, container, false)
@@ -27,7 +30,7 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
     }
 
     override fun setProgressIndicator(active: Boolean) {
-        if (active){
+        if (active) {
             mStatisticsTextView.text = getString(R.string.loading)
         } else {
             mStatisticsTextView.text = ""
@@ -35,13 +38,14 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
     }
 
     override fun showStatistics(numberOfActiveTasks: Int, numberOfCompletedTasks: Int) {
-        if (numberOfActiveTasks==0 && numberOfCompletedTasks==0){
+        if (numberOfActiveTasks == 0 && numberOfCompletedTasks == 0) {
             mStatisticsTextView.text = getString(R.string.statistics_no_tasks)
         } else {
-            mStatisticsTextView.text = "${getString(R.string.statistics_active_tasks)} "+
-                    "$numberOfActiveTasks\n"+
-                    "${getString(R.string.statistics_completed_tasks)} "+
+            val displayString = "${getString(R.string.statistics_active_tasks)} " +
+                    "$numberOfActiveTasks\n" +
+                    "${getString(R.string.statistics_completed_tasks)} " +
                     "$numberOfCompletedTasks"
+            mStatisticsTextView.text = displayString
         }
     }
 

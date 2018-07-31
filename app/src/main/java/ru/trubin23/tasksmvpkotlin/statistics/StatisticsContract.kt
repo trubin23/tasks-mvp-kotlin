@@ -6,7 +6,10 @@ import ru.trubin23.tasksmvpkotlin.BaseView
 interface StatisticsContract {
 
     interface View : BaseView<Presenter> {
-        fun setProgressIndicator(active : Boolean)
+
+        val isActive: Boolean
+
+        fun setProgressIndicator(active: Boolean)
 
         fun showStatistics(numberOfActiveTasks: Int, numberOfCompletedTasks: Int)
 

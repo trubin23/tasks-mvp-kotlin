@@ -26,6 +26,8 @@ class AddEditTaskPresenter(
                         setTitle(task.mTitle)
                         setDescription(task.mDescription)
                     }
+
+                    isDataMissing = false
                 }
 
                 override fun onDataNotAvailable() {

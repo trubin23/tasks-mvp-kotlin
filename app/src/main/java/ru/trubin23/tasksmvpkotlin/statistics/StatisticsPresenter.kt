@@ -20,13 +20,23 @@ class StatisticsPresenter(private val mTasksRepository: TasksRepository,
                 val completedTasks = tasks.filter { it.mIsCompleted }.size
                 val activeTasks = tasks.size - completedTasks
 
-                mStatisticsView.setProgressIndicator(false)
-                mStatisticsView.showStatistics(activeTasks, completedTasks)
+                with(mStatisticsView) {
+                    if (!isActive) {
+                        return@onTasksLoaded
+                    }
+                    mStatisticsView.setProgressIndicator(false)
+                    mStatisticsView.showStatistics(activeTasks, completedTasks)
+                }
             }
 
             override fun onDataNotAvailable() {
-                mStatisticsView.setProgressIndicator(false)
-                mStatisticsView.showLoadingStatisticsError()
+                with(mStatisticsView) {
+                    if (!isActive) {
+                        return@onDataNotAvailable
+                    }
+                    setProgressIndicator(false)
+                    showLoadingStatisticsError()
+                }
             }
         })
     }
